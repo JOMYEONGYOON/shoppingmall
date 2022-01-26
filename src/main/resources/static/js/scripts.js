@@ -5,3 +5,9 @@
 */
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
+
+const joinBtn = document.querySelector('#join-btn');
+joinBtn.addEventListener('click', event => {
+    location.href = "/join";
+});
+
