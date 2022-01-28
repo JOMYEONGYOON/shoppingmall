@@ -7,7 +7,11 @@
 // Use this file to add JavaScript to your project
 
 const joinBtn = document.querySelector('#join-btn');
+const loginBtn = document.querySelector('#login-btn');
 joinBtn.addEventListener('click', event => {
     location.href = "/join";
+});
+loginBtn.addEventListener('click', event => {
+    location.href = "/login";
 });
 
