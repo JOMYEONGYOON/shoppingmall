@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class ItemController {
 
-    @GetMapping("/{itemId}")
-    public String itemView(@PathVariable long itemId, Model model){
-        return "item";
-    }
+//    @GetMapping("/{itemId}")
+//    public String itemView(@PathVariable long itemId, Model model){
+//        return "item";
+//    }
 
 
 }
