@@ -19,9 +19,9 @@ public abstract class Item {
     @Column(name = "item_id")
     private Long id;
 //
-//    private String name;
-//    private int price;
-//    private int stockQuantity;
+    private String name;
+    private int price;
+    private int stockQuantity;
 //
 //    @ManyToMany(mappedBy = "items")
 //    private List<Category> categories = new ArrayList<>();
