@@ -8,6 +8,7 @@ import com.portfolio.shoppingmall.domain.item.Item;
 import com.portfolio.shoppingmall.repository.ItemRepository;
 import com.portfolio.shoppingmall.repository.MemberRepository;
 import com.portfolio.shoppingmall.repository.OrderRepository;
+import com.portfolio.shoppingmall.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,9 +61,11 @@ public class OrderService {
         order.cancel();
     }
 
-//    public List<Order> findOrders(OrderSearch orderSearch) {
-//        return orderRepository.findAll(orderSearch);
-//    }
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAllByCriteria(orderSearch);
+    }
+
+
 
 
 
