@@ -1,8 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="header" th:fragment="bodyHeader">
-    <ul class="nav nav-pills pull-right">
-        <li><a href="/">Home</a></li>
-    </ul>
-    <a href="/"><h3 class="text-muted">HELLO SHOP</h3></a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="#!">E-Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <form action="https://www.google.com/search" method="GET">
+                        <div class="mx-auto mt-5 search-bar input-group mb-3">
+                            <input name="q" type="text" class="form-control rounded-pill" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                            </div>
+                        </div>
+                    </form>
+                </ul>
+                <form class="d-flex">
+
+                    <button id="login-btn" class="btn btn-outline-dark join-btn" type="button" th:onclick="|location.href='@{/login}'|">
+                        로그인
+                    </button>
+
+                    <button id="join-btn" class="btn btn-outline-dark join-btn" type="button" th:onclick="|location.href='@{/join}'|">
+                        회원가입
+                    </button>
+
+                    <button id="myshop-btn" class="btn btn-outline-dark join-btn" type="button">
+                        <i class="bi bi-person-lines-fill"></i>
+                    </button>
+                    <button class="btn btn-outline-dark" type="submit">
+                        <i class="bi-cart-fill me-1"></i>
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
 </div>
