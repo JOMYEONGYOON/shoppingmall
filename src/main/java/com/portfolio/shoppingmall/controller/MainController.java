@@ -1,6 +1,7 @@
 package com.portfolio.shoppingmall.controller;
 
 import com.portfolio.shoppingmall.domain.Items;
+import com.portfolio.shoppingmall.dto.ItemsDto;
 import com.portfolio.shoppingmall.service.ItemsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,11 @@ public class MainController {
     @GetMapping("/items/view/detail/{id}")
     public String detail(@PathVariable Long id , Model model){
         log.info("id ={}",id);
+        // data
+        ItemsDto productDto = itemsService.getProduct(id);
+        log.info("productDto ={}",productDto);
+        model.addAttribute("product", productDto);
+
 
         return "item";
     }

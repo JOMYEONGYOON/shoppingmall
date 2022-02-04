@@ -27,6 +27,7 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	implementation 'org.springframework.boot:spring-boot-devtools'
 	implementation 'junit:junit:4.13.2'
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
