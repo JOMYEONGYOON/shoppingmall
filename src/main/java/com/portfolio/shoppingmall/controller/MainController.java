@@ -1,6 +1,6 @@
 package com.portfolio.shoppingmall.controller;
 
-import com.portfolio.shoppingmall.domain.Items;
+import com.portfolio.shoppingmall.domain.item.Items;
 import com.portfolio.shoppingmall.dto.ItemsDto;
 import com.portfolio.shoppingmall.service.ItemsService;
 import lombok.RequiredArgsConstructor;
@@ -27,15 +27,7 @@ public class MainController {
         model.addAttribute("itemsList",itemsList);
         return "myitems";
     }
-    @GetMapping("/login")
-    public String login(){
-        return "login";
-    }
 
-    @GetMapping("/join")
-    public String join(){
-        return "join";
-    }
 
     @GetMapping("/items/view/detail/{id}")
     public String detail(@PathVariable Long id , Model model){

@@ -1,6 +1,6 @@
 package com.portfolio.shoppingmall.service;
 
-import com.portfolio.shoppingmall.domain.Items;
+import com.portfolio.shoppingmall.domain.item.Items;
 import com.portfolio.shoppingmall.dto.ItemsDto;
 import com.portfolio.shoppingmall.repository.ItemsRepository;
 import lombok.RequiredArgsConstructor;

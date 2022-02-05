@@ -1,4 +1,4 @@
-package com.portfolio.shoppingmall.domain;
+package com.portfolio.shoppingmall.domain.item;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

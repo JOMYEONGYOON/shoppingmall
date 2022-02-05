@@ -1,6 +1,6 @@
 package com.portfolio.shoppingmall.repository;
 
-import com.portfolio.shoppingmall.domain.Items;
+import com.portfolio.shoppingmall.domain.item.Items;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
