@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,12 +39,16 @@ public class MemberController {
 
     @PostMapping("/join")
     public String registerMember(@ModelAttribute("member") @Valid MemberDto memberDto, BindingResult result){
-        Member check = memberService.findByEmail(memberDto.getEmail());
-//        if(check != null) {
-//            result.rejectValue("email", null,"중복된 아이디가 있습니다.");
-//        }
+        Member email = memberService.findByEmail(memberDto.getEmail());
+        log.info("email={}",email);
+        if(result.hasErrors()) {
+            return "join";
+        }
+        if(email != null) {
+            result.rejectValue("email", null,"중복된 아이디가 있습니다.");
+        }
 //        if(result.hasErrors()) {return "login";}
         memberService.save(memberDto);
-        return "redirect:/join";
+        return "redirect:/login";
     }
 }

@@ -6,6 +6,8 @@ import com.portfolio.shoppingmall.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
@@ -24,4 +26,6 @@ public class MemberServiceImpl implements MemberService{
         member = memberRepository.save(member);
         return member;
     }
+
+
 }

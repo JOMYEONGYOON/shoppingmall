@@ -33,6 +33,7 @@
                     </div>
                     <input name="" th:field="*{email}" class="form-control" placeholder="아이디(이메일)" type="email">
                 </div> <!-- form-group// -->
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 
                 <div class="form-group input-group">
                     <div class="input-group-prepend">
@@ -40,6 +41,8 @@
                     </div>
                     <input class="form-control" th:field="*{password}" placeholder="비밀번호" type="password">
                 </div> <!-- form-group// -->
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+
                 <div class="form-group input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
@@ -54,6 +57,7 @@
                     </div>
                     <input name="" class="form-control" th:field="*{name}" placeholder="이름" type="text">
                 </div> <!-- form-group// -->
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 
                 <div class="form-group input-group">
                     <div class="input-group-prepend">
@@ -61,6 +65,7 @@
                     </div>
                     <input name="" class="form-control" th:field="*{phone}" placeholder="휴대폰 번호" type="text">
                 </div> <!-- form-group// -->
+                <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
 
 
                 <div class="form-group">
