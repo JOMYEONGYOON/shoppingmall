@@ -11,25 +11,54 @@
 	<meta charset="UTF-8">
 	<title>회원가입</title>
 </head>
+<!--<script defer>-->
+<!--	function login(){-->
+<!--		const email = document.getElementById('email').value;-->
+<!--		const password = document.getElementById('password').value;-->
+<!--		let userInfo = {};-->
+
+<!--		userInfo.username = email;-->
+<!--		userInfo.password = password;-->
+
+<!--		$.ajax({-->
+<!--			type: "post",-->
+<!--			url: "/login",-->
+<!--			data: userInfo,-->
+<!--			success: function(data) {-->
+<!--				alert('성공');-->
+<!--				console.log(data);-->
+<!--				//location.href="/"-->
+<!--			},-->
+<!--			error: function(e){-->
+<!--				alert('error!!');-->
+<!--			}-->
+<!--		});-->
+<!--	}-->
+
+<!--</script>-->
 <body>
 <div class="container">
 
 	<div class="card bg-light">
 		<article class="card-body mx-auto" style="max-width: 400px;">
 			<h4 class="card-title mt-3 text-center">로그인</h4>
-			<form>
+			<form action="" th:action method="post" th:object="${member}">
 				<div class="form-group input-group">
 					<div class="input-group-prepend">
 						<span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 					</div>
-					<input name="" class="form-control" placeholder="아이디(이메일)" type="email">
+					<input name="" th:field="*{email}" class="form-control" placeholder="아이디(이메일)" type="email">
 				</div> <!-- form-group// -->
 
 				<div class="form-group input-group">
 					<div class="input-group-prepend">
 						<span class="input-group-text"> <i class="fa fa-lock"></i> </span>
 					</div>
-					<input class="form-control" placeholder="비밀번호" type="password">
+					<input class="form-control" th:field="*{password}" placeholder="비밀번호" type="password">
+				</div> <!-- form-group// -->
+
+				<div class="form-group input-group" th:if="${param.error}">
+					<p th:text="${exception}" class="alert alert-danger"></p>
 				</div> <!-- form-group// -->
 
 				<div class="form-group">

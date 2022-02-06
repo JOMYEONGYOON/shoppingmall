@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface MemberRepository extends JpaRepository<Member,Long> {
 
     @Query("SELECT m FROM Member m WHERE m.email = ?1")
-    Member findByEmail(String email);
+    public Member findByEmail(String email);
 
 }

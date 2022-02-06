@@ -5,6 +5,7 @@ import com.portfolio.shoppingmall.dto.MemberDto;
 import com.portfolio.shoppingmall.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -28,7 +30,11 @@ public class MemberController {
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login(@RequestParam(value = "error", required = false) String error,
+                        @RequestParam(value = "exception", required = false) String exception,
+                        Model model){
+        model.addAttribute("error",error);
+        model.addAttribute("exception",exception);
         return "login";
     }
 
@@ -39,15 +45,13 @@ public class MemberController {
 
     @PostMapping("/join")
     public String registerMember(@ModelAttribute("member") @Valid MemberDto memberDto, BindingResult result){
-        Member email = memberService.findByEmail(memberDto.getEmail());
-        log.info("email={}",email);
         if(result.hasErrors()) {
             return "join";
         }
-        if(email != null) {
-            result.rejectValue("email", null,"중복된 아이디가 있습니다.");
-        }
-//        if(result.hasErrors()) {return "login";}
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(memberDto.getPassword());
+        memberDto.setPassword(encodedPassword);
+//        BCrypt
         memberService.save(memberDto);
         return "redirect:/login";
     }
