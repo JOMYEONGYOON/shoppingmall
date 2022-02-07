@@ -1,4 +1,4 @@
-package com.portfolio.shoppingmall.config;
+package com.portfolio.shoppingmall.security;
 
 import com.portfolio.shoppingmall.domain.member.Member;
 import org.springframework.security.core.GrantedAuthority;

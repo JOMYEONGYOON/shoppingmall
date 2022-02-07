@@ -10,9 +10,9 @@ import javax.persistence.Id;
 
 @AllArgsConstructor
 @Entity
-@Getter
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder(builderMethodName = "MemberBuilder")
+//@Builder(builderMethodName = "MemberBuilder")
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,14 +26,16 @@ public class Member {
 
     private String phone;
 
+    private String role;
 
-    public static MemberBuilder builder(MemberDto memberDto) {
-        return MemberBuilder()
-                .id(memberDto.getId())
-                .email(memberDto.getEmail())
-                .password(memberDto.getPassword())
-                .name(memberDto.getName())
-                .phone(memberDto.getPhone());
-    }
+//
+//    public static MemberBuilder builder(MemberDto memberDto) {
+//        return MemberBuilder()
+//                .id(memberDto.getId())
+//                .email(memberDto.getEmail())
+//                .password(memberDto.getPassword())
+//                .name(memberDto.getName())
+//                .phone(memberDto.getPhone());
+//    }
 
 }

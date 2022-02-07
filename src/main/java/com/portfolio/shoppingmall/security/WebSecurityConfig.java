@@ -1,11 +1,9 @@
-package com.portfolio.shoppingmall.config;
+package com.portfolio.shoppingmall.security;
 import javax.sql.DataSource;
 
-import com.portfolio.shoppingmall.service.CustomUserDetailsService;
+import com.portfolio.shoppingmall.security.service.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -15,7 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -26,16 +27,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final DataSource dataSource;
     private final AuthenticationFailureHandler customFailureHandler;
+    private final AuthenticationSuccessHandler successHandler;
 
     @Bean
     public UserDetailsService userDetailsService() {
         return new CustomUserDetailsService();
     }
 
+//    @Bean
+//    public BCryptPasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder(){
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
+
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -46,10 +54,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return authProvider;
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//
+//        String password = passwordEncoder().encode("1111");
+//
+//        auth.inMemoryAuthentication().withUser("user").password(password).roles("USER");
+//        auth.inMemoryAuthentication().withUser("manager").password(password).roles("MANAGER");
+//        auth.inMemoryAuthentication().withUser("admin").password(password).roles("ADMIN");
+////        auth.authenticationProvider(authenticationProvider());
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -59,7 +73,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/login").permitAll()
                 .usernameParameter("email")
-                .defaultSuccessUrl("/")
+                .successHandler(successHandler)
                 .failureHandler(customFailureHandler)
                 .permitAll()
                 .and()

@@ -1,4 +1,4 @@
-package com.portfolio.shoppingmall.security;
+package com.portfolio.shoppingmall.security.handler;
 
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;

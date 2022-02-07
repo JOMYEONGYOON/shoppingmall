@@ -1,5 +1,6 @@
 package com.portfolio.shoppingmall.dto;
 
+import com.portfolio.shoppingmall.domain.item.Items;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,9 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class ItemsDto {
+
+    private Long id;
+
     private String name;
 
     private Long price;
@@ -30,4 +34,8 @@ public class ItemsDto {
     private LocalDateTime updateTimestamp;
 
     private Long discountPrice;
+
+
+
+
 }

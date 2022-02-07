@@ -5,7 +5,9 @@ import com.portfolio.shoppingmall.dto.MemberDto;
 import com.portfolio.shoppingmall.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +25,8 @@ import javax.validation.Valid;
 public class MemberController {
 
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
 
     @ModelAttribute("member")
     public MemberDto memberDto(){
@@ -43,16 +47,28 @@ public class MemberController {
         return "join";
     }
 
+//    @PostMapping("/join")
+//    public String registerMember(@ModelAttribute("member") @Valid MemberDto memberDto, BindingResult result){
+//        if(result.hasErrors()) {
+//            return "join";
+//        }
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        String encodedPassword = passwordEncoder.encode(memberDto.getPassword());
+//        memberDto.setPassword(encodedPassword);
+////        BCrypt
+//        memberService.save(memberDto);
+//        return "redirect:/login";
+//    }
+
     @PostMapping("/join")
-    public String registerMember(@ModelAttribute("member") @Valid MemberDto memberDto, BindingResult result){
-        if(result.hasErrors()) {
-            return "join";
-        }
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(memberDto.getPassword());
-        memberDto.setPassword(encodedPassword);
-//        BCrypt
-        memberService.save(memberDto);
-        return "redirect:/login";
+    public String createMember(MemberDto memberDto){
+        ModelMapper modelMapper = new ModelMapper();
+        Member member = modelMapper.map(memberDto, Member.class);
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
+        memberService.save(member);
+        return "redirect:/";
+
     }
+
+
 }

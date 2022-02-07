@@ -9,6 +9,6 @@ public interface MemberService {
 
     Member findByEmail(String email);
 
-    Member save(MemberDto memberDto);
+    void save(Member member);
 
 }

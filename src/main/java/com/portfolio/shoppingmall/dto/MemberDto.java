@@ -19,5 +19,6 @@ public class MemberDto {
     private String name;
     @NotBlank(message = "핸드폰 번호를 입력해주세요.")
     private String phone;
+    private String role;
 
 }
