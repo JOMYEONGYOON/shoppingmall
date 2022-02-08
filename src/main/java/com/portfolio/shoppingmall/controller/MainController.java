@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Slf4j
@@ -22,7 +24,7 @@ public class MainController {
 
 
     @RequestMapping("/")
-    public String home(Model model){
+    public String home(Model model, HttpServletRequest request){
         List<Items> itemsList = itemsService.getItemList();
         model.addAttribute("itemsList",itemsList);
         return "myitems";

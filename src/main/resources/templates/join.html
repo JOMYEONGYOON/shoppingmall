@@ -26,7 +26,7 @@
 <!--                <span class="bg-light">OR</span>-->
 <!--            </p>-->
             <form action="" th:action method="post" th:object="${member}">
-                <input th:field="*{role}" type="text" >
+                <input th:type="hidden" th:value="ROLE_USER" name="role">
                 <div class="form-group input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>

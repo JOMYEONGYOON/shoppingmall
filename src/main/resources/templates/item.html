@@ -3,8 +3,22 @@
     <head th:replace="fragments/header :: header">
         <title>Hello</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+        <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
     </head>
+    <script>
 
+        window.onload = function() {
+            let token = $("meta[name='_csrf']").attr("content");
+            let header = $("meta[name='_csrf_header']").attr("content");
+            console.log(token);
+            console.log(header);
+
+
+
+        }
+
+    </script>
     <body>
     <!-- Navigation-->
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
@@ -22,12 +36,10 @@
                         <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <a th:href="@{/addCart/{id}(id = ${product.id})}">
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                <i class="bi-cart-fill me-1"></i>
 
+                            <button id="add-cart" class="btn btn-outline-dark flex-shrink-0" type="button">
+                                <i class="bi-cart-fill me-1"></i>
                             </button>
-                            </a>
                         </div>
                     </div>
                 </div>

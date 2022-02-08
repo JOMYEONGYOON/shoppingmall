@@ -10,7 +10,7 @@ public class AccountContext extends User {
 
     private final Member member;
 
-    public AccountContext(Member member, Collection<? extends GrantedAuthority> authorities, Member member1) {
+    public AccountContext(Member member, Collection<? extends GrantedAuthority> authorities) {
         super(member.getEmail(), member.getPassword(), authorities);
         this.member = member;
     }

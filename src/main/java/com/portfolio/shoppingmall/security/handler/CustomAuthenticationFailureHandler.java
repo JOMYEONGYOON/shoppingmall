@@ -23,8 +23,8 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 
         if (exception instanceof BadCredentialsException ){
             msg="이메일 또는 비밀번호가 맞지 않습니다.";
-        }else if (exception instanceof InternalAuthenticationServiceException){
-            msg="존재하지 않는 아이디 입니다.";
+        }else if (exception instanceof InsufficientAuthenticationException){
+            msg="Invalid secret key";
         }
 
         msg= URLEncoder.encode(msg,"UTF-8");//한글 인코딩 깨지는 문제 방지
