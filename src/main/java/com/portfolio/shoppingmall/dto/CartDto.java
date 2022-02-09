@@ -4,19 +4,23 @@ import com.portfolio.shoppingmall.domain.item.Items;
 import com.portfolio.shoppingmall.domain.member.Member;
 import lombok.Data;
 
+import javax.persistence.*;
+
 @Data
 public class CartDto {
 
+    private Long cartId;
 
-    private Long Id;
+    private Long item_id;
 
-    private Items items;
-
-    private Member member;
+    private String memberId;
 
     private String clientid;
 
     private int quantity;
+
+    private int count;
+
 
 
 }

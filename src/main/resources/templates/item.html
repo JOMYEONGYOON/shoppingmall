@@ -6,19 +6,7 @@
         <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
         <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
     </head>
-    <script>
 
-        window.onload = function() {
-            let token = $("meta[name='_csrf']").attr("content");
-            let header = $("meta[name='_csrf_header']").attr("content");
-            console.log(token);
-            console.log(header);
-
-
-
-        }
-
-    </script>
     <body>
     <!-- Navigation-->
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
@@ -30,14 +18,14 @@
                     <div class="col-md-6">
                         <h1 class="display-5 fw-bolder" th:text="${product.name}">Shop item template</h1>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">$45.00</span>
-                            <span>$40.00</span>
+                            <span class="text-decoration-line-through" th:text="${product.price}">$45.00</span>
+                            <span th:text="${product.discountPrice}">$40.00</span>
                         </div>
                         <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-
-                            <button id="add-cart" class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <input th:type="hidden" th:field="${product.id}" th:value="${product.id}">
+                            <button id="add-cart" class="btn btn-outline-dark flex-shrink-0" type="button" onclick="dataSend()">
                                 <i class="bi-cart-fill me-1"></i>
                             </button>
                         </div>
@@ -159,4 +147,99 @@
         <script src="js/scripts.js"></script>
 
     </body>
+    <script th:inline="javascript">
+
+        $(function () {
+
+            var csrfToken = $("meta[name='_csrf']").attr("content");
+            $.ajaxPrefilter(function(options, originalOptions, jqXHR){
+                if (options['type'].toLowerCase() === "post") {
+                    jqXHR.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                }
+            });
+            // let param = {"memberId":memberId, "memberPass":memberPass}
+            //
+            // let addcartBtn = document.querySelector("#add-cart");
+            // addcartBtn.addEventListener('click', function (event) {
+            //     $.ajax({
+            //
+            //         type: "POST",
+            //         dataType: "json",
+            //         contentType: "application/json; charset=UTF-8",
+            //
+            //         success: function (result) {
+            //             alert("dd");
+            //         },
+            //         error: function (request,status,error) {
+            //             alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+            //         },
+            //         complete : function(data) {
+            //             //  실패했어도 완료가 되었을 때 처리
+            //         }
+            //
+            //
+            //     });
+            // });
+
+        });
+
+
+
+        // function dataSend() {
+        //     let value = document.getElementById('id').value;
+        //     let itemId= [[${product.id}]];
+        //
+        //     console.log(typeof itemId);
+        //     let param={
+        //         "itemId" :itemId
+        //     };
+        //     $.ajax({
+        //         url: "/cart/addcart",
+        //         data: JSON.stringify({
+        //             "itemId" : "dd"
+        //         }),
+        //         type: "POST",
+        //         contentType: "application/json; charset=UTF-8",
+        //         success: function (data) {
+        //             alert("성공");
+        //         },
+        //         error: function (jqXHR, textStatus, errorThrown) {
+        //             alert("ERROR : " + textStatus + " : " + errorThrown);
+        //         }
+        //     });
+        //
+        //
+        //     //     .done(function (fragment) {
+        //     //     $("#cart-count").replaceWith(fragment);
+        //     // });
+        // }
+
+        function dataSend() {
+            let itemId= [[${product.id}]];
+
+            let param={
+                "item_id" :itemId
+            };
+            $.ajax({
+                type: "POST",
+                url: "/api/user",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=UTF-8",
+                dataType: "json",
+            }).done(function(resp){
+                alert("성공");
+            }).fail(function (error) {
+                alert(JSON.stringify(error))
+            });
+
+
+
+
+            //     .done(function (fragment) {
+            //     $("#cart-count").replaceWith(fragment);
+            // });
+        }
+
+
+    </script>
 </html>

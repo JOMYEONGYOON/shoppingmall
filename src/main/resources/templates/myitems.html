@@ -3,6 +3,8 @@
 <head th:replace="fragments/header :: header">
     <title>Hello</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
 <!-- Navigation-->

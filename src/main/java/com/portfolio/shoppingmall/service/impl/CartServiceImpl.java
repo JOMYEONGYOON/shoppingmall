@@ -1,6 +1,7 @@
 package com.portfolio.shoppingmall.service.impl;
 
 import com.portfolio.shoppingmall.domain.cart.Cart;
+import com.portfolio.shoppingmall.domain.item.Items;
 import com.portfolio.shoppingmall.dto.CartDto;
 import com.portfolio.shoppingmall.dto.ItemsDto;
 import com.portfolio.shoppingmall.repository.CartItemRepository;
@@ -23,7 +24,9 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<Cart> cartlist(Cart cart) {
-        return null;
+    public List<Items> findCart() {
+        return cartItemRepository.findCart();
     }
+
+
 }

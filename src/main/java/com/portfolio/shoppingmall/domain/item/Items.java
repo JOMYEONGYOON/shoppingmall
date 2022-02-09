@@ -1,24 +1,31 @@
 package com.portfolio.shoppingmall.domain.item;
 
+import com.portfolio.shoppingmall.domain.cart.Cart;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 @Getter
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "id"))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "itemId"))
 public class Items {
 
     @Id
+    @Column(name = "itemId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Long price;
+
+    @OneToMany(mappedBy = "item_id")
+    List<Cart> itemsList = new ArrayList<>();
 
     private String description;
 
@@ -48,6 +55,9 @@ public class Items {
         this.size = size;
         this.discount = discount;
         this.categoryId = categoryId;
+    }
+    public Items(Long id){
+        this.id = id;
     }
 
 }

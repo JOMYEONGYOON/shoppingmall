@@ -194,13 +194,13 @@
                 <td>배송비</td>
             </tr>
             </thead>
-            <tbody>
-            <tr class="cart__list__detail">
+            <tbody >
+            <tr class="cart__list__detail" th:each="cart : ${cartlist}" >
                 <td><input type="checkbox"></td>
-                <td><img src="image/keyboard.jpg" alt="magic keyboard"></td>
+                <td><img th:src="@{/assets/img} + ${cart.imageUrl}" src="image/keyboard.jpg" alt="magic keyboard"></td>
                 <td><a href="#">애플 공식 브랜드스토어</a><span class="cart__list__smartstore"> 스마트스토어</span>
-                    <p>Apple 매직 키보드 - 한국어(MK2A3KH/A)</p>
-                    <sapn class="price">116,62원</sapn>
+                    <p th:text="${cart.name}">Apple 매직 키보드 - 한국어(MK2A3KH/A)</p>
+                    <span class="price" th:text="${cart.price}">116,62원</span>
                     <span
                             style="text-decoration: line-through; color: lightgray;">119,000</span>
                 </td>
@@ -208,29 +208,29 @@
                     <p>모델명 : 키보드 - 한국어 MK2A3KH/A / 1개</p>
                     <button class="cart__list__optionbtn">주문조건 추가/변경</button>
                 </td>
-                <td><span class="price">116,620원</span><br>
+                <td><span class="price" th:text="${cart.price}">116,620원</span><br>
                     <button class="cart__list__orderbtn">주문하기</button>
                 </td>
                 <td>무료</td>
             </tr>
-            <tr class="cart__list__detail">
-                <td style="width: 2%;"><input type="checkbox"></td>
-                <td style="width: 13%;">
-                    <img src="image/mouse.jpg" alt="magic mouse">
-                </td>
-                <td style="width: 27%;"><a href="#">컴퓨존</a><span class="cart__list__smartstore"> 스마트스토어</span>
-                    <p>[애플] Magic Mouse [MK2E3KH/A]</p>
-                    <span class=" price">88,900원</span>
-                </td>
-                <td class="cart__list__option" style="width: 27%;">
-                    <p>상품 주문 수량: 1개</p>
-                    <button class="cart__list__optionbtn">주문조건 추가/변경</button>
-                </td>
-                <td style="width: 15%;"><span class="price">88,900원</span><br>
-                    <button class="cart__list__orderbtn">주문하기</button>
-                </td>
-                <td style="width: 15%;">무료</td>
-            </tr>
+<!--            <tr class="cart__list__detail">-->
+<!--                <td style="width: 2%;"><input type="checkbox"></td>-->
+<!--                <td style="width: 13%;">-->
+<!--                    <img src="image/mouse.jpg" alt="magic mouse">-->
+<!--                </td>-->
+<!--                <td style="width: 27%;"><a href="#">컴퓨존</a><span class="cart__list__smartstore"> 스마트스토어</span>-->
+<!--                    <p>[애플] Magic Mouse [MK2E3KH/A]</p>-->
+<!--                    <span class=" price">88,900원</span>-->
+<!--                </td>-->
+<!--                <td class="cart__list__option" style="width: 27%;">-->
+<!--                    <p>상품 주문 수량: 1개</p>-->
+<!--                    <button class="cart__list__optionbtn">주문조건 추가/변경</button>-->
+<!--                </td>-->
+<!--                <td style="width: 15%;"><span class="price">88,900원</span><br>-->
+<!--                    <button class="cart__list__orderbtn">주문하기</button>-->
+<!--                </td>-->
+<!--                <td style="width: 15%;">무료</td>-->
+<!--            </tr>-->
             </tbody>
             <tfoot>
             <tr>

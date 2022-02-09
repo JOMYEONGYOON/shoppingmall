@@ -12,7 +12,7 @@ public interface CartService {
     void save(Cart cart);
 
     //read
-    List<Cart> cartlist(Cart cart);
+    List<Items> findCart();
 
     //quantity update
 
