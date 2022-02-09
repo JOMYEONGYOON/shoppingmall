@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,21 +31,35 @@ public class AjaxController {
         HttpSession httpSession = request.getSession();
         String sessionId = httpSession.getId();
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
-//        map.put("clientId",sessionId);
-//        CartDto cartDto = new CartDto();
-//        cartDto.setClientid(sessionId);
-//        cartDto.setItemId((Integer) map.get("itemId"));
-////        cartDto.put("item_id",cartDto.get("itemId"));
-//        ModelMapper modelMapper = new ModelMapper();
-//        Cart cart = modelMapper.map(cartDto, Cart.class);
-//
-//        System.out.println(sessionId);
         cartDto.setClientid(sessionId);
         Cart cart = modelMapper.map(cartDto, Cart.class);
         Items items = new Items(cartDto.getItem_id());
         cart.setItem_id(items);
         cartService.save(cart);
-        System.out.println(cartDto);
+//        Long itemId = Long.parseLong(cartDto.getItem_id().toString());
+//        Long listItemId;
+//        List<Items> cartList = cartService.findCart();
+//        List<Cart> byAll = cartService.findByAll();
+
+//        for (int i=0;i< cartList.size();i++) {
+//            listItemId = cartList.get(i).getId();
+//            List<Cart> itemsList = cartList.get(i).getItemsList();
+//            for (Cart cart1 : itemsList) {
+//                System.out.println("cart1 = " + cart1);
+//            }
+//            if(itemId.equals(listItemId)) {
+////                boolean byItemId = cartService.findByItemId(listItemId);
+//
+//                cart.setQuantity(+1);
+////
+//                break;
+//            }else{
+////                cartService.save(cart); break;
+//            }
+//
+//        }
+
+
         return 1;
     }
 

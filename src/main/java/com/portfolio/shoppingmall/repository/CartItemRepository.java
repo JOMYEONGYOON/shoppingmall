@@ -18,6 +18,8 @@ public interface CartItemRepository extends JpaRepository<Cart,Long> {
     @Query("select i from Items i join i.itemsList")
     List<Items> findCart();
 
+    @Query("select c from Cart c where c.item_id = : item_id")
+    Items findByItemId(@Param("item_id") Long item_id);
 
 
 

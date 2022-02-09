@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -23,9 +24,29 @@ public class CartServiceImpl implements CartService {
         cartItemRepository.save(cart);
     }
 
+
     @Override
     public List<Items> findCart() {
         return cartItemRepository.findCart();
+    }
+
+    @Override
+    public List<Cart> findByAll() {
+       return cartItemRepository.findAll();
+    }
+
+
+    @Override
+    public boolean findByItemId(Long id) {
+        Items byItemId = cartItemRepository.findByItemId(id);
+        System.out.println("byItemId = " + byItemId);
+        return true;
+
+    }
+
+    @Override
+    public void deleteCart() {
+
     }
 
 

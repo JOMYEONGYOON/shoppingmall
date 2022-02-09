@@ -5,6 +5,7 @@ import com.portfolio.shoppingmall.domain.item.Items;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CartService {
 
@@ -14,8 +15,14 @@ public interface CartService {
     //read
     List<Items> findCart();
 
+    List<Cart> findByAll();
+
+    boolean findByItemId(Long id);
+
+
     //quantity update
 
     //delete items
+    void deleteCart();
 
 }
