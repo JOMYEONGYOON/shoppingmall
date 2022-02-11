@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <body>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <div class="container">
   <div th:replace="fragments/bodyHeader :: bodyHeader"/>
   <form role="form" action="/order" method="post">
@@ -9,18 +10,13 @@
       <label for="member">주문회원</label>
       <select name="memberId" id="member" class="form-control">
         <option value="">회원선택</option>
-        <option th:each="member : ${members}"
-                th:value="${member.id}"
-                th:text="${member.name}" />
       </select>
     </div>
     <div class="form-group">
       <label for="item">상품명</label>
       <select name="itemId" id="item" class="form-control">
         <option value="">상품선택</option>
-        <option th:each="item : ${items}"
-                th:value="${item.id}"
-                th:text="${item.name}" />
+
       </select>
     </div>
     <div class="form-group">
@@ -28,10 +24,58 @@
       <input type="number" name="count" class="form-control" id="count"
              placeholder="주문 수량을 입력하세요">
     </div>
+
+    <div class="card-body bg-white mt-0 shadow">
+      <p style="font-weight: bold">카카오페이 현재 사용가능</p>
+      <label class="box-radio-input"><input type="radio" name="cp_item" value="5000"><span>5,000원</span></label>
+      <label class="box-radio-input"><input type="radio" name="cp_item" value="10000"><span>10,000원</span></label>
+      <label class="box-radio-input"><input type="radio" name="cp_item" value="15000"><span>15,000원</span></label>
+      <label class="box-radio-input"><input type="radio" name="cp_item" value="20000"><span>20,000원</span></label>
+      <label class="box-radio-input"><input type="radio" name="cp_item" value="25000"><span>25,000원</span></label>
+      <label class="box-radio-input"><input type="radio" name="cp_item" value="30000"><span>30,000원</span></label>
+      <label class="box-radio-input"><input type="radio" name="cp_item" value="35000"><span>35,000원</span></label>
+      <label class="box-radio-input"><input type="radio" name="cp_item" value="40000"><span>40,000원</span></label>
+      <label class="box-radio-input"><input type="radio" name="cp_item" value="50000"><span>50,000원</span></label>
+      <p  style="color: #ac2925; margin-top: 30px">카카오페이의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원 입니다.</p>
+      <button type="button" class="btn btn-lg btn-block  btn-custom" id="charge_kakao">충 전 하 기</button>
+    </div>
+
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
   <br/>
   <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
+
+<script defer>
+  $('#charge_kakao').click(function () {
+    var IMP = window.IMP;
+    IMP.init('imp96240372');
+    IMP.request_pay({
+      pg : "kakaopay",
+      pay_method : 'card',
+      merchant_uid : 'merchant_' + new Date().getTime(),
+      name : '결제',
+      amount : '3',
+      buyer_email : 'hairhold@gmail.com',
+      buyer_name : '조명윤',
+      buyer_tel : '01074207786',
+      buyer_addr : '서울시 성북구',
+      buyer_postcode : '부산시 북구',
+      m_redirect_url : '/order'
+    }, function(rsp) {
+      if ( rsp.success ) {
+        var msg = '결제가 완료되었습니다.';
+        location.href='/';
+      } else {
+        var msg = '결제에 실패하였습니다.';
+        rsp.error_msg;
+
+      }
+    });
+
+  });
+</script>
+
+
 </body>
 </html>

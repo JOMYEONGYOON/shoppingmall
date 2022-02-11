@@ -104,7 +104,7 @@ public class CartController {
         model.addAttribute("ctotal", total);
         System.out.println(cartPage);
         if (cartPage != null) {
-            return "redirect:/cart/cart";
+            return "redirect:/cart";
         }
 
         return "cart/cartPartial";
@@ -113,7 +113,7 @@ public class CartController {
     @GetMapping("/cart")
     public String view(HttpSession session, Model model) {
         if (session.getAttribute("cart") == null) {
-            return "redirect:/";
+            return "redirect:/cart";
         }
         Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
         model.addAttribute("cart", cart);
@@ -123,7 +123,7 @@ public class CartController {
     }
 
 
-    @GetMapping("/subtract/{id}")
+    @GetMapping("/cart/subtract/{id}")
     public String subtract(@PathVariable int id, HttpSession session, Model model, HttpServletRequest httpServletRequest) {
         Product product = productRepo.getById(id);
         Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
@@ -142,7 +142,7 @@ public class CartController {
         return "redirect:" + refererLink;
     }
 
-    @GetMapping("/remove/{id}")
+    @GetMapping("/cart/remove/{id}")
     public String remove(@PathVariable int id, HttpSession session, Model model, HttpServletRequest httpServletRequest) {
 
         Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
