@@ -1,7 +1,9 @@
 package com.portfolio.shoppingmall.controller;
 
+import com.portfolio.shoppingmall.domain.Product;
 import com.portfolio.shoppingmall.domain.item.Items;
 import com.portfolio.shoppingmall.dto.ItemsDto;
+import com.portfolio.shoppingmall.repository.ProductRepository;
 import com.portfolio.shoppingmall.service.ItemsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,21 +23,21 @@ import java.util.List;
 public class MainController {
 
     private final ItemsService itemsService;
-
+    private final ProductRepository productRepository;
 
     @RequestMapping("/")
     public String home(Model model, HttpServletRequest request){
-        List<Items> itemsList = itemsService.getItemList();
+        List<Product> itemsList = productRepository.findAll();
         model.addAttribute("itemsList",itemsList);
         return "myitems";
     }
 
 
     @GetMapping("/items/view/detail/{id}")
-    public String detail(@PathVariable Long id , Model model){
+    public String detail(@PathVariable int id , Model model){
         log.info("id ={}",id);
         // data
-        ItemsDto productDto = itemsService.getProduct(id);
+        Product productDto = productRepository.getById(id);
         log.info("productDto ={}",productDto);
         model.addAttribute("product", productDto);
 

@@ -24,9 +24,6 @@ public class Items {
     private String name;
     private Long price;
 
-    @OneToMany(mappedBy = "item_id")
-    List<Cart> itemsList = new ArrayList<>();
-
     private String description;
 
     private String imageUrl;

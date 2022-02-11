@@ -34,8 +34,8 @@ public class AjaxController {
         cartDto.setClientid(sessionId);
         Cart cart = modelMapper.map(cartDto, Cart.class);
         Items items = new Items(cartDto.getItem_id());
-        cart.setItem_id(items);
-        cartService.save(cart);
+//        cart.setItem_id(items);
+//        cartService.save(cart);
 //        Long itemId = Long.parseLong(cartDto.getItem_id().toString());
 //        Long listItemId;
 //        List<Items> cartList = cartService.findCart();

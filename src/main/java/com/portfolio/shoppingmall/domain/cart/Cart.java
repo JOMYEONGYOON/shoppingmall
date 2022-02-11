@@ -1,40 +1,20 @@
 package com.portfolio.shoppingmall.domain.cart;
 
-import com.portfolio.shoppingmall.domain.item.Items;
+import lombok.Data;
 
-import com.portfolio.shoppingmall.domain.member.Member;
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.*;
-
-
-@Getter @Setter
-@Entity
+@Data
 public class Cart {
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id" , nullable = true, updatable = false)
-    private Items item_id;
-
-
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "memberid" , nullable = true, updatable = false)
-//    private Member member;
-
-//    private String itemId;
-
-    private String memberId;
-
-    private String clientid;
-
+    private int id;
+    private String name;
+    private String price;
     private int quantity;
+    private String image;
 
-    private int count;
-
-
+    public Cart(int id, String name, String price, int quantity, String image) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.image = image;
+    }
 }
