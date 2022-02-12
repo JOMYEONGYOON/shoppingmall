@@ -23,7 +23,7 @@ public class OrderController {
     @GetMapping("/user/mypage/charge/point")
     public @ResponseBody void chargePoint(Long amount) {
         System.out.println(amount);
-        Member byEmail = memberService.findByEmail("hairhold@naver.com");
+//        Member byEmail = memberService.findByEmail("hairhold@naver.com");
 
     }
 
