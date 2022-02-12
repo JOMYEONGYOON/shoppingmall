@@ -16,6 +16,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -27,6 +28,7 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	implementation 'org.springframework.boot:spring-boot-devtools'
 	implementation 'junit:junit:4.13.2'
+	implementation 'com.github.iamport:iamport-rest-client-java:0.2.18'
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
 	implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
 	compileOnly 'org.projectlombok:lombok'

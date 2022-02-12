@@ -75,7 +75,6 @@ public class CartController {
     public String add(@PathVariable int id, HttpSession session, Model model, @RequestParam(value = "cartPage", required = false) String cartPage) {
         Product product = productRepo.getById(id);
         log.info("product={}",product);
-        System.out.println(session.getAttribute("cart"));
         if (session.getAttribute("cart") == null) {
             Map<Integer, Cart> cart = new HashMap<>();
             cart.put(id, new Cart(id, product.getName(), product.getPrice(), 1, product.getImage()));
@@ -97,12 +96,10 @@ public class CartController {
         for (Cart value : cart.values()) {
             size += value.getQuantity();
             total += value.getQuantity() * Double.parseDouble(value.getPrice());
-            System.out.println("value = " + value);
         }
 
         model.addAttribute("csize", size);
         model.addAttribute("ctotal", total);
-        System.out.println(cartPage);
         if (cartPage != null) {
             return "redirect:/cart";
         }
@@ -117,7 +114,6 @@ public class CartController {
         }
         Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
         model.addAttribute("cart", cart);
-        System.out.println(cart);
         model.addAttribute("notCartViewPage", true);
         return "cart/cart";
     }
