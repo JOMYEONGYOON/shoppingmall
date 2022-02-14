@@ -29,9 +29,14 @@
                         회원가입
                     </button>
 
-                    <button id="myshop-btn" class="btn btn-outline-dark join-btn" type="button" th:onclick="|location.href='@{/mypage}'|">
+                    <button id="myshop-btn" class="btn btn-outline-dark join-btn dropdown-toggle" type="button" data-toggle="dropdown">
                         <i class="bi bi-person-lines-fill"></i>
                     </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" th:href="@{/mypage}">page</a>
+                        <a class="dropdown-item" th:href="@{/dd}">주문목록</a>
+                        <a class="dropdown-item" th:href="@{/mage}">찜리스트</a>
+                    </div>
                     <div class="cart cartActive">
                         <button class="btn btn-outline-dark" type="button" th:onclick="|location.href='@{/cart}'|">
                             <i class="bi-cart-fill me-1"></i>
