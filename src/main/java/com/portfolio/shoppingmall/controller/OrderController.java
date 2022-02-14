@@ -42,13 +42,14 @@ public class OrderController {
     @RequestMapping(value="/verifyIamport/{imp_uid}")
     public IamportResponse<Payment> paymentByImpUid(
             Model model
+            , @RequestBody HashMap<String, String> map
             , Locale locale
             , HttpSession session
             , HttpServletRequest request
             , @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException
     {
-        String parameter = request.getParameter("price");
-        System.out.println("parameter = " + parameter);
+        log.info("map={}",map);
+        System.out.println("------------------");
         return api.paymentByImpUid(imp_uid);
     }
 

@@ -35,10 +35,8 @@ public class MainController {
 
     @GetMapping("/items/view/detail/{id}")
     public String detail(@PathVariable int id , Model model){
-        log.info("id ={}",id);
         // data
         Product productDto = productRepository.getById(id);
-        log.info("productDto ={}",productDto);
         model.addAttribute("product", productDto);
 
 

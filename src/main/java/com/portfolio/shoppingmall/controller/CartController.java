@@ -74,7 +74,6 @@ public class CartController {
     @GetMapping("cart/add/{id}")
     public String add(@PathVariable int id, HttpSession session, Model model, @RequestParam(value = "cartPage", required = false) String cartPage) {
         Product product = productRepo.getById(id);
-        log.info("product={}",product);
         if (session.getAttribute("cart") == null) {
             Map<Integer, Cart> cart = new HashMap<>();
             cart.put(id, new Cart(id, product.getName(), product.getPrice(), 1, product.getImage()));
