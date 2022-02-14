@@ -1,6 +1,6 @@
 <button class="btn btn-outline-dark" type="button" th:onclick="|location.href='@{/cart}'|">
     <i class="bi-cart-fill me-1"></i>
-    <p>Total <span th:text="${#numbers.formatDecimal(ctotal,3,'POINT',0,'COMMA')} + '원'"></span></p>
+
     <span id="cart-count" class="badge bg-dark text-white ms-1 rounded-pill cartActive" th:text="${csize}">0</span>
 </button>
 

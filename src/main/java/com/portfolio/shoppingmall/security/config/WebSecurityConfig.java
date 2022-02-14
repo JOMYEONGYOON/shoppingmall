@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/myitems").authenticated()
-                .antMatchers("/mypage").hasRole("USER")
+                .antMatchers("/mypage","/order").hasRole("USER")
                 .antMatchers("/messages").hasRole("MANAGER")
                 .anyRequest().permitAll()
                 .and()

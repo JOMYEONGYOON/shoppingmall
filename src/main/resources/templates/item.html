@@ -6,7 +6,18 @@
         <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
         <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
     </head>
+    <style>
+        .prod-pre-order{
+            margin: 20px;
+            display: none;
+        }
+        .prod-pre-order-active{
+            display: block;
+            z-index: 10;
+            width: 254px;
+        }
 
+    </style>
     <body>
     <!-- Navigation-->
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
@@ -30,6 +41,15 @@
                             </button>
                             </a>
                         </div>
+
+
+                        <div id="myDIV" class="form-group prod-pre-order">
+                            <p>상품이 장바구니에 담겼습니다.</p>
+                            <button class="btn btn-outline-dark">
+                                <span class="prod-buy-btn__txt">장바구니 바로가기</span>
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -149,7 +169,9 @@
         <script src="js/scripts.js"></script>
 
     </body>
-    <script>
+    <script defer>
+
+
         $("a.addToCart").click(function(e) {
             e.preventDefault();
             let $this = $(this);
@@ -160,12 +182,20 @@
             $.get(url, function(data) {
                 $('div.cart').html(data);
             }).done(function() {
-                // $this.parent().parent().find('div.productAdded').fadeIn();
-                // $this.next().addClass('d-none');
-                // setTimeout(() => {
-                //     $this.parent().parent().find('div.productAdded').fadeOut();
-                // }, 100);
+                let element = document.getElementById("myDIV");
+                element.classList.add("prod-pre-order-active");
+                setTimeout(myFunction2, 5000);
+
             });
         });
+
+
+        function myFunction2() {
+            let element = document.getElementById("myDIV");
+            element.classList.remove("prod-pre-order-active");
+            element.classList.add("prod-pre-order");
+            console.log("실행2222");
+        }
+
     </script>
 </html>
