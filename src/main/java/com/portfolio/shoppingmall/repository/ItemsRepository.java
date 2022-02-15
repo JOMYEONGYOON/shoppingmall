@@ -17,4 +17,5 @@ public interface ItemsRepository extends JpaRepository<Items, Long> {
     List<Items> findAllByCategoryId(Long categoryId);
 
 
+
 }

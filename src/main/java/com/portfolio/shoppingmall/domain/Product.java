@@ -11,11 +11,14 @@ import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Data;
-
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "products")
 @Data
@@ -48,4 +51,19 @@ public class Product {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+
+    @Builder
+    public Product(int id, String name, String slug, String description, String image, String price, String categoryId, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.slug = slug;
+        this.description = description;
+        this.image = image;
+        this.price = price;
+        this.categoryId = categoryId;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
 }

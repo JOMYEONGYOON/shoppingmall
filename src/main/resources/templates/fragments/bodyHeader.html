@@ -7,15 +7,14 @@
             <a class="navbar-brand" href="" th:href="@{/}">E-Shop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <form action="https://www.google.com/search" method="GET">
-                        <div class="mx-auto mt-5 search-bar input-group mb-3">
-                            <input name="q" type="text" class="form-control rounded-pill" aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <div class="input-group-append">
-                            </div>
-                        </div>
-                    </form>
-                </ul>
+
+                <form class="d-flex" action="/search" method="get">
+                    <div class="search">
+                        <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                    </div>
+                    <button type="button" class="btn btn-outline-dark">검색하기</button>
+                </form>
+
                 <form class="d-flex">
 
                     <button sec:authorize="isAnonymous()" id="login-btn" class="btn btn-outline-dark join-btn" type="button" th:onclick="|location.href='@{/login}'|">

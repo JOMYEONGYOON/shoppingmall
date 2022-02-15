@@ -37,5 +37,35 @@ public class ItemsDto {
 
 
 
+    public Items toEntity(){
+        Items items = Items.builder()
+                .id(id)
+        .name(name)
+        .price(price)
+        .description(description)
+        .imageUrl(imageUrl)
+        .color(color)
+        .size(size)
+        .discount(discount)
+        .categoryId(categoryId)
+                .build();
+        return items;
+
+    }
+
+    @Builder
+    public ItemsDto(Long id,String name, Long price, String description, String imageUrl, String color, String size, Long discount, Long categoryId) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.color = color;
+        this.size = size;
+        this.discount = discount;
+        this.categoryId = categoryId;
+    }
+
+
 
 }

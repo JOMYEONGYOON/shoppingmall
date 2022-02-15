@@ -43,7 +43,8 @@ public class Items {
     private LocalDateTime updateTimestamp;
 
     @Builder
-    public Items(String name, Long price, String description, String imageUrl, String color, String size, Long discount, Long categoryId) {
+    public Items(Long id,String name, Long price, String description, String imageUrl, String color, String size, Long discount, Long categoryId) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
@@ -56,5 +57,6 @@ public class Items {
     public Items(Long id){
         this.id = id;
     }
+
 
 }
