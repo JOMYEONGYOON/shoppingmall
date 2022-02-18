@@ -32,15 +32,6 @@ public class CartController {
 
     private final ProductRepository productRepo;
 
-//    @GetMapping("/cart")
-//    public String cart(Model model, HttpServletRequest request){
-//        List<Items> cart = cartService.findCart();
-//        model.addAttribute("cartlist",cart);
-//        return "cart/cart";
-//    }
-
-
-
     @GetMapping("cart/add/{id}")
     public String add(@PathVariable int id, HttpSession session, Model model, @RequestParam(value = "cartPage", required = false) String cartPage) {
         Product product = productRepo.getById(id);
@@ -79,7 +70,7 @@ public class CartController {
     @GetMapping("/cart")
     public String view(HttpSession session, Model model) {
         if (session.getAttribute("cart") == null) {
-            return "redirect:/cart";
+            model.addAttribute("cart", null);
         }
         Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
         model.addAttribute("cart", cart);

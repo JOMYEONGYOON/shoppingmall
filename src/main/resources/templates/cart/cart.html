@@ -178,7 +178,6 @@
 <section class="cart">
     <div class="cart__information">
         <ul>
-            <li>장바구니 상품은 최대 30일간 저장됩니다.</li>
             <li>가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
             <li>오늘출발 상품은 판매자 설정 시점에 따라 오늘출발 여부가 변경될 수 있으니 주문 시 꼭 다시 확인해 주시기 바랍니다.</li>
         </ul>
@@ -195,32 +194,45 @@
             </tr>
             </thead>
             <tbody >
-            <tr class="cart__list__detail" th:each="el : ${cart}" >
-                <td><input type="checkbox"></td>
-                <td><img th:src="@{/assets/img} + ${el.value.image}" src="image/keyboard.jpg" alt="magic keyboard"></td>
-                <td><a href="#"></a><span class="cart__list__smartstore"> </span>
-                    <p th:text="${el.value.name}"></p>
-                    <span class="price" th:text="${el.value.price}">116,62원</span>
-                    <span
-                            style="text-decoration: line-through; color: lightgray;">119,000</span>
-                </td>
-                <td class="cart__list__option">
-                    <p th:text="${el.value.quantity} + '개'"></p>
-                    <a th:href="@{'/cart/add/' + ${el.value.id} + '?cartPage=true'}"
-                       class="btn btn-success btn-sm">+</a>
-                    <a th:href="@{'/cart/subtract/' + ${el.value.id}}" class="btn btn-primary btn-sm">-</a>
-                </td>
-                <td><span class="price" th:text="${el.value.price}"></span><br>
-                    <button class="cart__list__orderbtn">주문하기</button>
-                </td>
-                <td>무료</td>
-            </tr>
 
-            <td colspan="4" class="text-right"><b>총 금액</b></td>
-            <td colspan="1"><span th:text="${#numbers.formatDecimal(ctotal,3,'POINT',0,'COMMA')} + '원'"></span></td>
-<!--            <td th:with="formattedTotal=${el.value.price} * ${el.value.quantity}"></td>-->
-<!--                th:text="'$' + ${#numbers.formatDecimal(formattedTotal, 0, 'COMMA', 2, 'POINT')}"></td>-->
-<!--            <td colspan="1" th:text="'$' + ${#numbers.formatDecimal(ctotal, 0, 'COMMA', 2, 'POINT')}"></td>-->
+            <div th:if = "${cart != null}">
+                <tr class="cart__list__detail" th:each="el : ${cart}" >
+                    <td><input type="checkbox"></td>
+                    <td><img th:src="@{/assets/img} + ${el.value.image}" src="image/keyboard.jpg" alt="magic keyboard"></td>
+                    <td><a href="#"></a><span class="cart__list__smartstore"> </span>
+                        <p th:text="${el.value.name}"></p>
+                        <span class="price" th:text="${el.value.price}">116,62원</span>
+                        <span
+                                style="text-decoration: line-through; color: lightgray;">119,000</span>
+                    </td>
+                    <td class="cart__list__option">
+                        <p th:text="${el.value.quantity} + '개'"></p>
+                        <a th:href="@{'/cart/add/' + ${el.value.id} + '?cartPage=true'}"
+                           class="btn btn-success btn-sm">+</a>
+                        <a th:href="@{'/cart/subtract/' + ${el.value.id}}" class="btn btn-primary btn-sm">-</a>
+                    </td>
+                    <td><span class="price" th:text="${el.value.price}"></span><br>
+                        <button class="cart__list__orderbtn" th:onclick="|location.href='@{/order}'|">주문하기</button>
+                    </td>
+                    <td>무료</td>
+                </tr>
+
+                <td colspan="4" class="text-right"><b>총 금액</b></td>
+                <td colspan="1"><span th:text="${#numbers.formatDecimal(ctotal,3,'POINT',0,'COMMA')} + '원'"></span></td>
+                <!--            <td th:with="formattedTotal=${el.value.price} * ${el.value.quantity}"></td>-->
+                <!--                th:text="'$' + ${#numbers.formatDecimal(formattedTotal, 0, 'COMMA', 2, 'POINT')}"></td>-->
+                <!--            <td colspan="1" th:text="'$' + ${#numbers.formatDecimal(ctotal, 0, 'COMMA', 2, 'POINT')}"></td>-->
+
+            </div>
+
+
+            <div th:if = "${cart == null}">
+                <tr class="cart__list__detail">
+                    <td style="font-size: 40px;">장바구니가 비워있습니다.</td>
+                </tr>
+
+            </div>
+
             </tbody>
             <tfoot>
             <tr>

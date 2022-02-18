@@ -11,7 +11,8 @@
         margin: 20px;
         display: none;
     }
-    #myDIV{
+
+    #myDIV {
         z-index: 10;
     }
 
@@ -22,6 +23,44 @@
     }
 
 
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0); /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        font-size: 15px;
+        width: 20%;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
 
 </style>
@@ -43,25 +82,50 @@
                 </div>
                 <div class="d-flex">
 
-                                        <!-- 수량 넣는 칸-->
-                    <input type="number" name="quantity" id="" style="font-size: 15px; width: 20%">
-                        <!--수량 넣는 칸 끝 -->
+                    <!-- 수량 넣는 칸-->
+                    <input type="number" name="quantity" id="" value="1" style="font-size: 15px; width: 20%">
+                    <!--수량 넣는 칸 끝 -->
 
+
+                    <!--                    <a class="addToCart" th:attr="data-id=${product.id}" th:href="@{'/cart/add/' + ${product.id}}">-->
+                    <!--                        <button id="add-cart" class="btn btn-outline-dark flex-shrink-0" type="button">-->
+                    <!--                            <i class="bi-cart-fill me-1"></i>-->
+                    <!--                        </button>-->
+                    <!--                    </a>-->
 
                     <a class="addToCart" th:attr="data-id=${product.id}" th:href="@{'/cart/add/' + ${product.id}}">
-                        <button id="add-cart" class="btn btn-outline-dark flex-shrink-0" type="button">
-                            <i class="bi-cart-fill me-1"></i>
+                        <button type="button" id="myBtn" class="btn btn-primary" style="width: 100%; margin-left: 5px">
+                            장바구니에 담기
                         </button>
                     </a>
 
+                    <button type="button" id="myBt" class="btn btn-success" th:onclick="|location.href='@{/order}'|" style="width: 25%; margin-left: 10px">바로
+                        구매하기
+                    </button>
+
+                    <!-- The Modal -->
+                    <div id="myModal" class="modal">
+
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <p>상품이 장바구니에 담겼습니다.</p>
+                            <button type="button" class="btn btn-primary" style="width: 100%; margin-left: 5px"
+                                    th:onclick="|location.href='@{/cart}'|">장바구니에 바로가기
+                            </button>
+                        </div>
+
+                    </div>
+
+
                 </div>
             </div>
-                <div id="myDIV" class="form-group prod-pre-order-active">
-                    <p>상품이 장바구니에 담겼습니다.</p>
-                    <button class="btn btn-outline-dark">
-                        <span class="prod-buy-btn__txt">장바구니 바로가기</span>
-                    </button>
-                </div>
+            <!--                <div id="myDIV" class="form-group prod-pre-order-active">-->
+            <!---->
+            <!--                    <button class="btn btn-outline-dark">-->
+            <!--                        <span class="prod-buy-btn__txt">장바구니 바로가기</span>-->
+            <!--                    </button>-->
+            <!--                </div>-->
 
 
         </div>
@@ -186,6 +250,23 @@
 </body>
 <script defer>
 
+    let modal = document.getElementById('myModal');
+
+    // Get the button that opens the modal
+    let btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    let span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
 
     $("a.addToCart").click(function (e) {
         e.preventDefault();
@@ -197,20 +278,15 @@
         $.get(url, function (data) {
             $('div.cart').html(data);
         }).done(function () {
-            let element = document.getElementById("myDIV");
-            element.classList.add("prod-pre-order-active");
-            setTimeout(myFunction2, 5000);
+            setTimeout(function() {
+                modal.style.display = "none";
+            }, 2000);
 
         });
     });
 
 
-    function myFunction2() {
-        let element = document.getElementById("myDIV");
-        element.classList.remove("prod-pre-order-active");
-        element.classList.add("prod-pre-order");
-        console.log("실행2222");
-    }
+
 
 </script>
 </html>
