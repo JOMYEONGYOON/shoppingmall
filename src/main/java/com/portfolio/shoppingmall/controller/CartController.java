@@ -54,7 +54,12 @@ public class CartController {
         int size = 0;
         double total = 0;
         for (Cart value : cart.values()) {
-            size += value.getQuantity();
+            if(cart.containsKey(id)) {
+                size = 1;
+            }else{
+                size += value.getQuantity();
+            }
+
             total += value.getQuantity() * Double.parseDouble(value.getPrice());
         }
 

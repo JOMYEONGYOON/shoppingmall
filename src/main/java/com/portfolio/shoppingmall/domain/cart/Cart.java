@@ -17,4 +17,10 @@ public class Cart {
         this.quantity = quantity;
         this.image = image;
     }
+
+    public Cart(int id, int quantity) {
+        this.id = id;
+        this.quantity = quantity;
+    }
+
 }
