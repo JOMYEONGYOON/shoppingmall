@@ -28,7 +28,6 @@ public class BaseController {
             Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
             int size = 0;
             double total = 0;
-        log.info("cart={}",cart);
 
 //            for (Cart value : cart.values()) {
 ////                if(value.getId() == ) {
@@ -44,7 +43,7 @@ public class BaseController {
 
             for (Cart value : cart.values()) {
                 if(cart.containsKey(value.getId())) {
-                    size = 1;
+                    size = cart.size();
                 }else{
                     size += value.getQuantity();
                 }

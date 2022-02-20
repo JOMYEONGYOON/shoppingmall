@@ -55,7 +55,7 @@ public class CartController {
         double total = 0;
         for (Cart value : cart.values()) {
             if(cart.containsKey(id)) {
-                size = 1;
+                size = cart.size();
             }else{
                 size += value.getQuantity();
             }
