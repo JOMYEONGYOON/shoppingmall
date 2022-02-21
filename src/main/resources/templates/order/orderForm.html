@@ -19,11 +19,11 @@
         <th>휴대폰 번호</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody id="member-table">
       <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
+        <td th:text="${orderMember.name}">John</td>
+        <td th:text="${orderMember.email}">Doe</td>
+        <td th:text="${orderMember.phone}">12</td>
       </tr>
       </tbody>
 
@@ -41,13 +41,13 @@
         <th>배송 요청사항</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody id="delivery-table">
 
       <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-        <td>john@example.com</td>
+        <td>조명윤</td>
+        <td>010-7420-7786</td>
+        <td>부산시 북구 화명동 </td>
+        <td>문 앞에 나두세요</td>
       </tr>
 
       </tbody>
@@ -55,19 +55,99 @@
     </table>
 
 
-    <span style="font-size: 25px" th:text="${#numbers.formatDecimal(ctotal,3,'POINT',0,'COMMA')} + '원'"></span>
+
+    <h3 class="h3">결제정보</h3>
+    <table class="table"  style="font-size: 20px;  margin: 40px">
+      <thead>
+      <tr>
+        <th>상품 이름</th>
+        <th>상품 수량</th>
+      </tr>
+      </thead>
+      <tbody id="order-table">
+      <tr>
+<!--        <td th:text=""></td>-->
+<!--        <td th:text=""></td>-->
+      </tr>
+      </tbody>
+
+    </table>
+
+
+    <span id="total"
+          style="font-size: 25px" th:text="${#numbers.formatDecimal(ctotal,3,0,'COMMA')}">
+    </span>
+    <span style="font-size: 20px;margin-left: 8px;">원</span>
     <button class="btn btn-primary" type="button" onClick="requestPay2()">결제하기</button>
   </form>
   <br/>
-  <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 
-<script defer>
-  const IMP = window.IMP;
-  IMP.init("imp96240372");
+<div th:replace="fragments/footer :: footer" />
+<script type="text/javascript" defer>
+
+  $(document).ready(function(){
+
+
+
+  });
+
+
 
   function requestPay2() {
+    //////////////////////////// 결제정보
+    const IMP = window.IMP;
+    IMP.init("imp96240372");
+    //////////////////////////// 결제정보 End
     // IMP.request_pay(param, callback) 결제창 호출
+
+    let buyerName = "";
+    let buyerEmail = "";
+    let buyerPhone = "";
+    let buyerAmount = document.getElementById("total").innerText;
+    let ShippingName = "";
+    let ShippingAddress = "";
+    let ShippingPhone = "";
+    let ShippingRequirements = "";
+    let orderName = "";
+    let orderCount = "";
+    console.log(buyerAmount);
+
+
+    let rows = document.getElementById("member-table").getElementsByTagName("tr");
+    // tr만큼 루프돌면서 컬럼값 접근
+    for( let r=0; r<rows.length; r++ ){
+      let cells = rows[r].getElementsByTagName("td");
+
+      buyerName = cells[0].firstChild.data;		// 이름
+      buyerEmail = cells[1].firstChild.data;		// 이메일
+      buyerPhone = cells[2].firstChild.data;		// 휴대폰 번호
+
+    }
+
+    let rows2 = document.getElementById("delivery-table").getElementsByTagName("tr");
+    for( let r=0; r<rows2.length; r++ ){
+      let cells = rows2[r].getElementsByTagName("td");
+
+      ShippingName = cells[0].firstChild.data;		// 이름
+      ShippingAddress = cells[1].firstChild.data;		// 배송주소
+      ShippingPhone = cells[2].firstChild.data;		// 연락처
+      ShippingRequirements = cells[3].firstChild.data;		// 배송 요청사항
+
+    }
+
+
+    let rows3 = document.getElementById("order-table").getElementsByTagName("tr");
+    for( let r=0; r<rows3.length; r++ ){
+      let cells = rows3[r].getElementsByTagName("td");
+
+      orderName = cells[0].firstChild.data;
+      orderCount = cells[1].firstChild.data;
+
+    }
+
+
+
     let random = "";
     for(let i=0;i<3;i++){
       random += Math.floor(Math.random() * 10)
@@ -77,13 +157,13 @@
       pg: "kakaopay",
       pay_method: "kakaopay",
       merchant_uid: orderId, // 주문번호
-      name: "청바지",
-      amount: 6900,
-      buyer_email: "hairhold@gmail.com",
-      buyer_name: "조명윤",
-      buyer_tel: "010-7420-7786",
-      buyer_addr: "서울특별시 강남구 신사동",
-      buyer_postcode: "01181"
+      name: orderName,
+      amount: buyerAmount,
+      buyer_email: buyerEmail,
+      buyer_name: buyerName,
+      buyer_tel: buyerPhone,
+      buyer_addr: ShippingAddress,
+      buyer_postcode: ShippingAddress
     }, function(rsp) {
       console.log(rsp);
       // 결제검증
@@ -93,9 +173,13 @@
         dataType: 'json',
         contentType: 'application/json',
         data: JSON.stringify({
-          uid   : rsp.imp_uid,
-          price : rsp.paid_amount,
-          email : rsp.buyer_email
+          uid       : rsp.imp_uid,
+          price     : rsp.paid_amount,
+          email     : rsp.buyer_email,
+          name      : rsp.buyer_name,
+          phone     : rsp.buyer_tel,
+          addr      : rsp.buyer_addr
+
           //기타 필요한 데이터가 있으면 추가 전달
         })
       }).done(function(data) {

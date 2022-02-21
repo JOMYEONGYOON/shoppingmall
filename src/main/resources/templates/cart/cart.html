@@ -182,8 +182,8 @@
             <li>오늘출발 상품은 판매자 설정 시점에 따라 오늘출발 여부가 변경될 수 있으니 주문 시 꼭 다시 확인해 주시기 바랍니다.</li>
         </ul>
     </div>
-    <table class="cart__list">
-        <form>
+    <table class="cart__list" id="cart-list">
+        <form name="cart-form" id="cart-form">
             <thead>
             <tr>
                 <td><input type="checkbox"></td>
@@ -193,20 +193,20 @@
                 <td>배송비</td>
             </tr>
             </thead>
-            <tbody >
+            <tbody id="cart-table">
 
             <div th:if = "${cart != null}">
                 <tr class="cart__list__detail" th:each="el : ${cart}" >
-                    <td><input type="checkbox"></td>
+                    <td><input id="cart-check" name="cart-check" type="checkbox" onclick="check()"></td>
                     <td><img th:src="@{/assets/img} + ${el.value.image}" src="image/keyboard.jpg" alt="magic keyboard"></td>
                     <td><a href="#"></a><span class="cart__list__smartstore"> </span>
-                        <p th:text="${el.value.name}"></p>
+                        <p class="name" th:text="${el.value.name}"></p>
                         <span class="price" th:text="${el.value.price}">116,62원</span>
                         <span
                                 style="text-decoration: line-through; color: lightgray;">119,000</span>
                     </td>
                     <td class="cart__list__option">
-                        <p th:text="${el.value.quantity} + '개'"></p>
+                        <span class="count" th:text="${el.value.quantity}"></span><span>개</span>
                         <a th:href="@{'/cart/add/' + ${el.value.id} + '?cartPage=true'}"
                            class="btn btn-success btn-sm">+</a>
                         <a th:href="@{'/cart/subtract/' + ${el.value.id}}" class="btn btn-primary btn-sm">-</a>
@@ -249,7 +249,7 @@
     </table>
     <div class="cart__mainbtns">
         <button class="cart__bigorderbtn left"  th:onclick="|location.href='@{/}'|">쇼핑 계속하기</button>
-        <button class="cart__bigorderbtn right" th:onclick="|location.href='@{/order}'|">주문하기</button>
+        <button id="order" type="button" class="cart__bigorderbtn right" onclick="orderService()">주문하기</button>
     </div>
 </section>
 <div th:replace="fragments/footer :: footer"/>
@@ -257,3 +257,98 @@
 
 </body>
 </html>
+
+<script type="text/javascript" th:inline="javascript">
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+
+        // /*<![CDATA[*/
+        //
+        // let listVals = /*[[${cart}]]*/ "test1";
+        // /*]]>*/
+
+
+
+
+        // for(i=0;i<listVals.length;i++){
+        //     console.log(listVals[i].name);
+        //     console.log(listVals[i].id);
+        //     console.log(listVals[i].price);
+        // }
+
+        // let rows = document.getElementById("cart-list").getElementsByTagName("tr");
+        // // tr만큼 루프돌면서 컬럼값 접근
+        //
+        // let cells = rows[1].getElementsByTagName("td");
+        //
+        // for (let i = 0; i < 10; i++) {
+        //     console.log(cells[i].firstChild.data);
+        // }
+
+
+    });
+
+
+
+
+    {
+
+
+        // let  = {"count" : count , "name" : name};
+
+
+        function check() {
+
+            // //체크박스 체크여부 확인 [동일 이름을 가진 체크박스 여러개일 경우]
+            // let isCartCheck = false;
+            // let cartCheck = document.getElementsByName("cart-check");
+            // for(var i=0;i<cartCheck.length;i++){
+            //     if(cartCheck[i].checked == true) {
+            //         isCartCheck = true;
+            //     }else{
+            //         alert("1개 이상의 상품을 선택해주세요.");
+            //     }
+            // }
+        }
+    }
+
+    function orderService() {
+        let isCartCheck = false;
+        let cartCheck = document.getElementsByName("cart-check");
+        for(var i=0;i<cartCheck.length;i++){
+            if(cartCheck[i].checked == true) {
+                isCartCheck = true;
+            }else{
+                alert("1개 이상의 상품을 선택해주세요.");
+            }
+        }
+
+        let orderBtn = document.querySelector('#order');
+        /*<![CDATA[*/
+
+        let allData = [[${cart}]];
+        console.log(allData);
+        // location.replace([[${searchUrl}]]);
+
+        /*]]>*/
+
+        orderBtn.addEventListener("click", function() {
+
+            $.ajax({
+                url : "/order" ,
+                data: allData,
+                success:function(data){
+                    alert("완료!");
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+                    self.close();
+                }
+            });
+        });
+    }
+
+
+
+</script>

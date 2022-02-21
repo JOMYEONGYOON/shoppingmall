@@ -1,16 +1,8 @@
 package com.portfolio.shoppingmall.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portfolio.shoppingmall.domain.Product;
 import com.portfolio.shoppingmall.domain.cart.Cart;
-import com.portfolio.shoppingmall.domain.item.Items;
-import com.portfolio.shoppingmall.domain.member.Member;
-import com.portfolio.shoppingmall.dto.CartDto;
 import com.portfolio.shoppingmall.repository.ProductRepository;
-import com.portfolio.shoppingmall.security.SessionConst;
-import com.portfolio.shoppingmall.service.CartService;
-import com.portfolio.shoppingmall.service.ItemsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -19,11 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -78,7 +67,42 @@ public class CartController {
             model.addAttribute("cart", null);
         }
         Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
+        Map<String , List<Object>> test1 = new HashMap<>();
+        List<Object> cartList = new ArrayList<>();
+        Map<String, Object> cart2 = new HashMap<>();
+        for (Cart value : cart.values()) {
+            test1.put("name", new ArrayList<Object>());
+            test1.get("name").add(value.getName());
+
+            test1.put("id", new ArrayList<Object>());
+            test1.get("id").add(value.getId());
+
+            test1.put("quantity", new ArrayList<Object>());
+            test1.get("quantity").add(value.getQuantity());
+
+//            cartList.add();
+//            cartList.add();
+//            cartList.add(value.getPrice());
+//            cartList.add(value.getQuantity());
+//            test1.put(value.getId(),cartList);
+//            cart2.put("name",value.getName());
+//            cart2.put("id", value.getId());
+//            cart2.put("price", value.getPrice());
+//            cart2.put("quantity", value.getQuantity());
+        }
+        log.info("test1={}",test1);
+//
+
+//        Map<Integer, Cart> cart2 = new HashMap<>();
+//        cart2.put(1,cart.get());
+        Iterator<Integer> keys = cart.keySet().iterator();
+        while (keys.hasNext()){
+            int key = keys.next();
+            System.out.println("KEY : " + key); // Key2 , Key1, Key4, Key3, Key5
+             }
+
         model.addAttribute("cart", cart);
+        model.addAttribute("cartList", cartList);
         model.addAttribute("notCartViewPage", true);
         return "cart/cart";
     }

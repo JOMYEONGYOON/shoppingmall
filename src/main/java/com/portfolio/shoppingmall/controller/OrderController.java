@@ -1,7 +1,10 @@
 package com.portfolio.shoppingmall.controller;
 
+import com.portfolio.shoppingmall.domain.Product;
+import com.portfolio.shoppingmall.domain.cart.Cart;
 import com.portfolio.shoppingmall.domain.member.Member;
 import com.portfolio.shoppingmall.service.MemberService;
+import com.portfolio.shoppingmall.service.ProductService;
 import com.siot.IamportRestClient.Iamport;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
@@ -10,6 +13,7 @@ import com.siot.IamportRestClient.response.Payment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +23,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @Slf4j
@@ -27,6 +33,9 @@ public class OrderController {
     @Autowired
     private MemberService memberService;
 
+//    @Autowired
+//    private ProductService productService;
+
     private IamportClient api;
 
     public OrderController(){
@@ -34,9 +43,23 @@ public class OrderController {
     }
 
     @GetMapping("/order")
-    public String order(){
+    public String order(Model model, Authentication authentication, HttpSession httpSession , @RequestParam HashMap<String, String> map){
+
+        log.info("map={}",map);
+        for(String key : map.keySet()) {
+            System.out.println(key);
+        }
+
+
+
+        String name = authentication.getName();
+        Member member = memberService.findByEmail(name);
+//        Optional<Product> byId = productService.findById();
+        model.addAttribute("orderMember",member);
         return "order/orderForm";
     }
+
+
 
     @ResponseBody
     @RequestMapping(value="/verifyIamport/{imp_uid}")
