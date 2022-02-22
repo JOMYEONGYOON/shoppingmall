@@ -21,10 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @Slf4j
@@ -42,21 +39,36 @@ public class OrderController {
         this.api = new IamportClient("6685630644289929","bf21670bef0bfc7e541818e6dcaec606e8d69ad65c1191e478a902b0658a63f7859ae9134aa59680");
     }
 
+
+
+    @PostMapping("/order/service")
+    @ResponseBody
+    public HashMap<String, String> orderService(@RequestParam HashMap<String, String> map){
+        log.info("map.keySet()={}",map.keySet());
+        log.info("cart2[id]={}",map.get("cart2[id]"));
+        String idValue = map.get("cart2[id]");
+        String id = map.get("allData["+idValue+"][id]");
+        String quantity = map.get("allData["+idValue+"][quantity]");
+        log.info("id={}",id);
+        log.info("quantity={}",quantity);
+        List<String> list = new ArrayList<>();
+        return map;
+    }
+
     @GetMapping("/order")
     public String order(Model model, Authentication authentication, HttpSession httpSession , @RequestParam HashMap<String, String> map){
-
-        log.info("map={}",map);
-        for(String key : map.keySet()) {
-            System.out.println(key);
-        }
-
-
 
         String name = authentication.getName();
         Member member = memberService.findByEmail(name);
 //        Optional<Product> byId = productService.findById();
         model.addAttribute("orderMember",member);
-        return "order/orderForm";
+        return "/order/orderForm";
+    }
+
+    @GetMapping("/popup")
+    public String popup(Model model, Authentication authentication, HttpSession httpSession , @RequestParam HashMap<String, String> map){
+
+        return "/order/addresspopup";
     }
 
 

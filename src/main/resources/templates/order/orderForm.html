@@ -31,7 +31,7 @@
 
 
     <h3 class="h3">받는사람 정보</h3>
-    <button type="button" class="btn btn-primary">배송지 변경</button>
+    <button type="button" class="btn btn-primary" onclick="showPopup()">배송지 변경</button>
     <table class="table"  style="font-size: 20px; margin: 40px">
       <thead>
       <tr>
@@ -195,6 +195,11 @@
       });
     });
   }
+
+  function showPopup() {
+    window.open("/popup", "a", "width=400, height=300, left=100, top=50");
+  }
+
 
 </script>
 

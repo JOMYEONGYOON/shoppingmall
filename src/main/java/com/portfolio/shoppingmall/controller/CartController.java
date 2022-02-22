@@ -67,30 +67,13 @@ public class CartController {
             model.addAttribute("cart", null);
         }
         Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
-        Map<String , List<Object>> test1 = new HashMap<>();
-        List<Object> cartList = new ArrayList<>();
         Map<String, Object> cart2 = new HashMap<>();
         for (Cart value : cart.values()) {
-            test1.put("name", new ArrayList<Object>());
-            test1.get("name").add(value.getName());
+            cart2.put("id",value.getId());
+            if(cart2.containsKey("id")){
 
-            test1.put("id", new ArrayList<Object>());
-            test1.get("id").add(value.getId());
-
-            test1.put("quantity", new ArrayList<Object>());
-            test1.get("quantity").add(value.getQuantity());
-
-//            cartList.add();
-//            cartList.add();
-//            cartList.add(value.getPrice());
-//            cartList.add(value.getQuantity());
-//            test1.put(value.getId(),cartList);
-//            cart2.put("name",value.getName());
-//            cart2.put("id", value.getId());
-//            cart2.put("price", value.getPrice());
-//            cart2.put("quantity", value.getQuantity());
+            }
         }
-        log.info("test1={}",test1);
 //
 
 //        Map<Integer, Cart> cart2 = new HashMap<>();
@@ -98,11 +81,10 @@ public class CartController {
         Iterator<Integer> keys = cart.keySet().iterator();
         while (keys.hasNext()){
             int key = keys.next();
-            System.out.println("KEY : " + key); // Key2 , Key1, Key4, Key3, Key5
              }
 
         model.addAttribute("cart", cart);
-        model.addAttribute("cartList", cartList);
+        model.addAttribute("cart2", cart2);
         model.addAttribute("notCartViewPage", true);
         return "cart/cart";
     }

@@ -197,7 +197,7 @@
 
             <div th:if = "${cart != null}">
                 <tr class="cart__list__detail" th:each="el : ${cart}" >
-                    <td><input id="cart-check" name="cart-check" type="checkbox" onclick="check()"></td>
+                    <td><input id="cart-check" name="cart-check" type="checkbox"></td>
                     <td><img th:src="@{/assets/img} + ${el.value.image}" src="image/keyboard.jpg" alt="magic keyboard"></td>
                     <td><a href="#"></a><span class="cart__list__smartstore"> </span>
                         <p class="name" th:text="${el.value.name}"></p>
@@ -249,7 +249,7 @@
     </table>
     <div class="cart__mainbtns">
         <button class="cart__bigorderbtn left"  th:onclick="|location.href='@{/}'|">쇼핑 계속하기</button>
-        <button id="order" type="button" class="cart__bigorderbtn right" onclick="orderService()">주문하기</button>
+        <button id="order" type="button" class="cart__bigorderbtn right" th:onclick="|location.href='@{/order}'|">주문하기</button>
     </div>
 </section>
 <div th:replace="fragments/footer :: footer"/>
@@ -287,6 +287,36 @@
         // }
 
 
+        let orderBtn = document.querySelector('#order');
+        /*<![CDATA[*/
+
+        let allData = [[${cart}]];
+        let cart2 = [[${cart2}]];
+        console.log(allData);
+        // location.replace([[${searchUrl}]]);
+
+        /*]]>*/
+
+        orderBtn.addEventListener("click", function() {
+            check();
+
+            $.ajax({
+                url : "/order/service" ,
+                data: {allData : allData , cart2 : cart2},
+                type: "POST",
+                success:function(data){
+                    console.log(data[0]);
+                    console.log("----------------");
+                    // location.replace("/order=" + data);
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+                    self.close();
+                }
+            });
+        });
+
+
     });
 
 
@@ -300,54 +330,27 @@
 
         function check() {
 
-            // //체크박스 체크여부 확인 [동일 이름을 가진 체크박스 여러개일 경우]
-            // let isCartCheck = false;
-            // let cartCheck = document.getElementsByName("cart-check");
-            // for(var i=0;i<cartCheck.length;i++){
-            //     if(cartCheck[i].checked == true) {
-            //         isCartCheck = true;
-            //     }else{
-            //         alert("1개 이상의 상품을 선택해주세요.");
-            //     }
-            // }
-        }
-    }
-
-    function orderService() {
-        let isCartCheck = false;
-        let cartCheck = document.getElementsByName("cart-check");
-        for(var i=0;i<cartCheck.length;i++){
-            if(cartCheck[i].checked == true) {
-                isCartCheck = true;
-            }else{
+            let isCartCheck = false;
+            let count = 0;
+            let cartCheck = document.getElementsByName("cart-check");
+            for(let i=0;i<cartCheck.length;i++){
+                if(cartCheck[i].checked === true) {
+                    count++;
+                }
+            }
+            if(count === 0) {
                 alert("1개 이상의 상품을 선택해주세요.");
+                return ;
             }
         }
-
-        let orderBtn = document.querySelector('#order');
-        /*<![CDATA[*/
-
-        let allData = [[${cart}]];
-        console.log(allData);
-        // location.replace([[${searchUrl}]]);
-
-        /*]]>*/
-
-        orderBtn.addEventListener("click", function() {
-
-            $.ajax({
-                url : "/order" ,
-                data: allData,
-                success:function(data){
-                    alert("완료!");
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
-                    self.close();
-                }
-            });
-        });
     }
+
+
+
+
+
+
+
 
 
 
