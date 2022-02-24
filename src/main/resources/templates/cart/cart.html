@@ -249,7 +249,7 @@
     </table>
     <div class="cart__mainbtns">
         <button class="cart__bigorderbtn left"  th:onclick="|location.href='@{/}'|">쇼핑 계속하기</button>
-        <button id="order" type="button" class="cart__bigorderbtn right" th:onclick="|location.href='@{/order}'|">주문하기</button>
+        <button id="order" type="button" class="cart__bigorderbtn right">주문하기</button>
     </div>
 </section>
 <div th:replace="fragments/footer :: footer"/>
@@ -262,29 +262,6 @@
 
     document.addEventListener("DOMContentLoaded", function() {
 
-
-        // /*<![CDATA[*/
-        //
-        // let listVals = /*[[${cart}]]*/ "test1";
-        // /*]]>*/
-
-
-
-
-        // for(i=0;i<listVals.length;i++){
-        //     console.log(listVals[i].name);
-        //     console.log(listVals[i].id);
-        //     console.log(listVals[i].price);
-        // }
-
-        // let rows = document.getElementById("cart-list").getElementsByTagName("tr");
-        // // tr만큼 루프돌면서 컬럼값 접근
-        //
-        // let cells = rows[1].getElementsByTagName("td");
-        //
-        // for (let i = 0; i < 10; i++) {
-        //     console.log(cells[i].firstChild.data);
-        // }
 
 
         let orderBtn = document.querySelector('#order');
@@ -305,9 +282,10 @@
                 data: {allData : allData , cart2 : cart2},
                 type: "POST",
                 success:function(data){
-                    console.log(data[0]);
+                    console.log(data.quantity);
                     console.log("----------------");
-                    // location.replace("/order=" + data);
+                    console.log(data.name);
+                    location.replace("/order?name=" + data.name + "&quantity=" + data.quantity);
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);

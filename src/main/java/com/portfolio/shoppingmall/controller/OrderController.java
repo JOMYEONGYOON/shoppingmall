@@ -44,15 +44,13 @@ public class OrderController {
     @PostMapping("/order/service")
     @ResponseBody
     public HashMap<String, String> orderService(@RequestParam HashMap<String, String> map){
-        log.info("map.keySet()={}",map.keySet());
-        log.info("cart2[id]={}",map.get("cart2[id]"));
         String idValue = map.get("cart2[id]");
-        String id = map.get("allData["+idValue+"][id]");
         String quantity = map.get("allData["+idValue+"][quantity]");
-        log.info("id={}",id);
-        log.info("quantity={}",quantity);
-        List<String> list = new ArrayList<>();
-        return map;
+        String name = map.get("allData["+idValue+"][name]");
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("name",name);
+        hashMap.put("quantity",quantity);
+        return hashMap;
     }
 
     @GetMapping("/order")
@@ -60,8 +58,8 @@ public class OrderController {
 
         String name = authentication.getName();
         Member member = memberService.findByEmail(name);
-//        Optional<Product> byId = productService.findById();
         model.addAttribute("orderMember",member);
+        model.addAttribute("orderItem",map);
         return "/order/orderForm";
     }
 
