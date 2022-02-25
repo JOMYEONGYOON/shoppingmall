@@ -269,29 +269,34 @@
 
         let allData = [[${cart}]];
         let cart2 = [[${cart2}]];
+        let list = [[${list}]];
         console.log(allData);
         // location.replace([[${searchUrl}]]);
 
         /*]]>*/
 
         orderBtn.addEventListener("click", function() {
-            check();
+            let b = check();
+            if(b) {
+                $.ajax({
+                    url : "/order/service" ,
+                    data: {allData : allData , cart2 : cart2 , list : list},
+                    type: "POST",
+                    success:function(data){
+                        console.log(data.quantity);
+                        console.log("----------------");
+                        console.log(data);
+                        console.log("----------------");
+                        console.log(data.name);
+                        location.replace("/order?name=" + data.name + "&quantity=" + data.quantity);
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+                        self.close();
+                    }
+                });
+            }
 
-            $.ajax({
-                url : "/order/service" ,
-                data: {allData : allData , cart2 : cart2},
-                type: "POST",
-                success:function(data){
-                    console.log(data.quantity);
-                    console.log("----------------");
-                    console.log(data.name);
-                    location.replace("/order?name=" + data.name + "&quantity=" + data.quantity);
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
-                    self.close();
-                }
-            });
         });
 
 
@@ -319,7 +324,11 @@
             if(count === 0) {
                 alert("1개 이상의 상품을 선택해주세요.");
                 return ;
+            }else{
+                isCartCheck = true;
             }
+
+            return isCartCheck;
         }
     }
 

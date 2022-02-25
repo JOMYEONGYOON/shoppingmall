@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -68,24 +67,32 @@ public class CartController {
         }
         Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
         Map<String, Object> cart2 = new HashMap<>();
-        for (Cart value : cart.values()) {
-            cart2.put("id",value.getId());
-            if(cart2.containsKey("id")){
+        ArrayList<Integer> list = new ArrayList<>();
+     try {
 
-            }
-        }
-//
-
-//        Map<Integer, Cart> cart2 = new HashMap<>();
-//        cart2.put(1,cart.get());
-        Iterator<Integer> keys = cart.keySet().iterator();
-        while (keys.hasNext()){
-            int key = keys.next();
+         for (Cart value : cart.values()) {
+             for (int i=0;i< cart.size();i++){
+                 list.add(i,value.getId());
+                 cart2.put("id",value.getId());
              }
 
+
+
+             if(cart2.containsKey("id")){
+
+             }
+         }
+
+     } catch(NullPointerException e){
+         cart2.put("id","empty");
+     }
         model.addAttribute("cart", cart);
         model.addAttribute("cart2", cart2);
+        model.addAttribute("list", list);
         model.addAttribute("notCartViewPage", true);
+//        Map<Integer, Cart> cart2 = new HashMap<>();
+//        cart2.put(1,cart.get());
+
         return "cart/cart";
     }
 

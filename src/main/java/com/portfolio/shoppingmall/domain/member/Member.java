@@ -6,7 +6,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @AllArgsConstructor
 @Entity
@@ -29,6 +31,11 @@ public class Member implements UserDetails {
     private String phone;
 
     private String role;
+
+    @OneToMany(mappedBy = "member")
+    List<Address> list = new ArrayList<>();
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

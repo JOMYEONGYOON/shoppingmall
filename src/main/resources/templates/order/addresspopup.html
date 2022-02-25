@@ -1,12 +1,61 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    .add-address{
+        display: none;
+    }
+    .add-address-active{
+        display: block;
+    }
+    .address-addBtn{
+        overflow: visible;
+        display: inline-block;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        vertical-align: middle;
+        box-sizing: content-box;
+        font-family: apple sd gothic neo,malgun gothic,nanumbarungothic,nanumgothic,dotum,sans-serif;
+        background-color: #fff;
+        color: #0073e9;
+        border: 1px solid #ccc;
+        font-size: 15px;
+        box-shadow: inset 0 -1px 0 rgb(0 0 0 / 15%);
+        transition: box-shadow .25s ease;
+        display: block;
+        text-align: center;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: -1px;
+        margin-right: -1px;
+    }
+</style>
 <body>
 <div class="container">
 
+    <div th:each="addressList, i: ${addressList}" class="card" style="min-width: 300px;max-width: 460px; padding: 10px 10px 10px;">
+        <div class="card-body"  style="z-index: 1;padding: 15px; border: 2px solid #8bace2;">
+            <h2 class="card-title" th:text="${addressList.getRecipient()}">이름</h2>
+            <h2 class="card-subtitle mb-2 text-muted" th:text="${addressList.getPhone()}">번호</h2>
+            <p class="card-text" th:text="${addressList.getAddress()}"></p>
+            <p class="card-text" th:text="${addressList.getDetailedAddress()}"></p>
+            <button class="btn-success card-link">수정</button>
+            <button class="btn-success card-link">선택</button>
+        </div>
+    </div>
+
+    <button class="address-addBtn">+배송지 추가</button>
+
+    <div class="add-address">
     <input type="text" id="sample4_postcode" placeholder="우편번호">
     <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
     <input type="text" id="sample4_roadAddress" placeholder="도로명주소">
@@ -14,7 +63,7 @@
     <span id="guide" style="color:#999;display:none"></span>
     <input type="text" id="sample4_detailAddress" placeholder="상세주소">
     <input type="text" id="sample4_extraAddress" placeholder="참고항목">
-
+    </div>
 
 </div>
 </body>
