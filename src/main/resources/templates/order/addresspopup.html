@@ -11,6 +11,9 @@
     .add-address-active{
         display: block;
     }
+    .card-none{
+        display: none;
+    }
     .address-addBtn{
         overflow: visible;
         display: inline-block;
@@ -42,7 +45,7 @@
 <body>
 <div class="container">
 
-    <div th:each="addressList, i: ${addressList}" class="card" style="min-width: 300px;max-width: 460px; padding: 10px 10px 10px;">
+    <div th:each="addressList, i: ${addressList}" id="card" class="card" style="min-width: 300px;max-width: 460px; padding: 10px 10px 10px;">
         <div class="card-body"  style="z-index: 1;padding: 15px; border: 2px solid #8bace2;">
             <h2 class="card-title" th:text="${addressList.getRecipient()}">이름</h2>
             <h2 class="card-subtitle mb-2 text-muted" th:text="${addressList.getPhone()}">번호</h2>
@@ -53,18 +56,21 @@
         </div>
     </div>
 
-    <button class="address-addBtn">+배송지 추가</button>
-
-    <div class="add-address">
-    <input type="text" id="sample4_postcode" placeholder="우편번호">
+    <button class="address-addBtn" onclick="addAddress()">+배송지 추가</button>
+    <div id="add-address" class="add-address">
+    <form method="post" th:action th:object="${address}">
+    <input type="text" th:field="*{recipient}" id="recipient" name="recipient" placeholder="받는사람">
+    <input type="text" th:field="*{phone}" id="phone" name="phone" placeholder="연락처">
+    <input type="text" id="sample4_postcode" name="zipcode" placeholder="우편번호">
     <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-    <input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-    <input type="text" id="sample4_jibunAddress" placeholder="지번주소">
+    <input type="text" th:field="*{address}" id="sample4_roadAddress" name="address" placeholder="도로명주소">
+    <input type="text" id="sample4_jibunAddress" name="" placeholder="지번주소">
     <span id="guide" style="color:#999;display:none"></span>
-    <input type="text" id="sample4_detailAddress" placeholder="상세주소">
+    <input type="text" th:field="*{detailedAddress}" id="sample4_detailAddress" placeholder="상세주소">
     <input type="text" id="sample4_extraAddress" placeholder="참고항목">
+        <button type="submit">저장</button>
+    </form>
     </div>
-
 </div>
 </body>
 </html>
@@ -72,6 +78,19 @@
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+
+
+
+    });
+
+    function addAddress() {
+        document.getElementById('add-address').className = 'add-address-active';
+        document.getElementById('card').className = 'card-none';
+    }
+
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
         new daum.Postcode({

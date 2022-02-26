@@ -1,13 +1,13 @@
 package com.portfolio.shoppingmall.domain.member;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Address {
 
@@ -25,4 +25,16 @@ public class Address {
     private String address;
 
     private String detailedAddress;
+
+//    @Builder
+//    public Address(Member member, String recipient, String phone, String address, String detailedAddress) {
+//        this.member = member;
+//        this.recipient = recipient;
+//        this.phone = phone;
+//        this.address = address;
+//        this.detailedAddress = detailedAddress;
+//    }
+
+
+
 }

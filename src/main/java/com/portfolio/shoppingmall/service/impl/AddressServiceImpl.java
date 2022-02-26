@@ -20,4 +20,9 @@ public class AddressServiceImpl implements AddressService {
     public List<Address> findByMember_id(Long id) {
         return addressRepository.findByMember_id(id);
     }
+
+    @Override
+    public void save(Address address) {
+        addressRepository.save(address);
+    }
 }

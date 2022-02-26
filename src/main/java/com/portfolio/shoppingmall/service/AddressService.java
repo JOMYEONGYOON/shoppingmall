@@ -9,4 +9,6 @@ public interface AddressService {
 
     List<Address> findByMember_id(Long id);
 
+    void save(Address address);
+
 }

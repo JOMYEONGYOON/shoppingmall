@@ -13,7 +13,7 @@ public class AddressDto {
     private Member member;
 
 
-    private String Recipient;
+    private String recipient;
 
     private String phone;
 

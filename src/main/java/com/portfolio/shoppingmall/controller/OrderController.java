@@ -4,6 +4,8 @@ import com.portfolio.shoppingmall.domain.Product;
 import com.portfolio.shoppingmall.domain.cart.Cart;
 import com.portfolio.shoppingmall.domain.member.Address;
 import com.portfolio.shoppingmall.domain.member.Member;
+import com.portfolio.shoppingmall.dto.AddressDto;
+import com.portfolio.shoppingmall.dto.MemberDto;
 import com.portfolio.shoppingmall.service.AddressService;
 import com.portfolio.shoppingmall.service.MemberService;
 import com.portfolio.shoppingmall.service.ProductService;
@@ -14,6 +16,7 @@ import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -34,6 +37,9 @@ public class OrderController {
 
     @Autowired
     private AddressService addressService;
+
+    @Autowired
+    private ModelMapper modelMapper;
 //    @Autowired
 //    private ProductService productService;
 
@@ -43,7 +49,10 @@ public class OrderController {
         this.api = new IamportClient("6685630644289929","bf21670bef0bfc7e541818e6dcaec606e8d69ad65c1191e478a902b0658a63f7859ae9134aa59680");
     }
 
-
+    @ModelAttribute("address")
+    public AddressDto addressDto(){
+        return new AddressDto();
+    }
 
     @PostMapping("/order/service")
     @ResponseBody
@@ -78,6 +87,18 @@ public class OrderController {
         List<Address> addressList = addressService.findByMember_id(id);
         model.addAttribute("addressList",addressList);
         return "/order/addresspopup";
+    }
+
+    @PostMapping("/popup")
+    public String addAddress(AddressDto addressDto , Authentication authentication) {
+        System.out.println("addressDto = " + addressDto);
+        String name = authentication.getName();
+        Member member = memberService.findByEmail(name);
+        addressDto.setMember(member);
+        Address address = modelMapper.map(addressDto, Address.class);
+        System.out.println(address);
+        addressService.save(address);
+        return "redirect:/popup";
     }
 
     @ResponseBody
