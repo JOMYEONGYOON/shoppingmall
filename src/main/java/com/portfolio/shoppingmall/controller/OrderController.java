@@ -91,12 +91,10 @@ public class OrderController {
 
     @PostMapping("/popup")
     public String addAddress(AddressDto addressDto , Authentication authentication) {
-        System.out.println("addressDto = " + addressDto);
         String name = authentication.getName();
         Member member = memberService.findByEmail(name);
         addressDto.setMember(member);
         Address address = modelMapper.map(addressDto, Address.class);
-        System.out.println(address);
         addressService.save(address);
         return "redirect:/popup";
     }
@@ -106,13 +104,32 @@ public class OrderController {
     public Map<String, Object> updateAddress(@PathVariable Long id , Model model){
         Map<String, Object> response = new HashMap<>();
         Optional<Address> addressId = addressService.findById(id);
-        model.addAttribute("addressId",addressId);
         response.put("recipient",addressId.get().getRecipient());
+        response.put("id",addressId.get().getId());
         response.put("phone",addressId.get().getPhone());
         response.put("address",addressId.get().getAddress());
         response.put("detailAddress",addressId.get().getDetailedAddress());
         return response;
     }
+
+    @ResponseBody
+    @PutMapping("/update/{id}")
+    public String updatePutAddress(@PathVariable Long id , @RequestBody AddressDto addressDto, Authentication authentication){
+        String name = authentication.getName();
+        Member member = memberService.findByEmail(name);
+        addressDto.setMember(member);
+        Optional<Address> addressId = addressService.findById(id);
+        addressId.get().setAddress(addressDto.getAddress());
+        addressId.get().setDetailedAddress(addressDto.getDetailedAddress());
+        addressId.get().setPhone(addressDto.getPhone());
+        addressId.get().setRecipient(addressDto.getRecipient());
+
+        Address address = modelMapper.map(addressDto, Address.class);
+        addressService.save(address);
+
+        return "ok";
+    }
+
 
     @ResponseBody
     @RequestMapping(value="/verifyIamport/{imp_uid}")

@@ -11,8 +11,16 @@
     .add-address-active{
         display: block;
     }
-    .card-none{
+    .list-address-none{
         display: none;
+    }
+
+
+    .update-delete-address{
+        display: none;
+    }
+    .update-delete-address-active{
+        display: block;
     }
     .address-addBtn{
         overflow: visible;
@@ -44,22 +52,21 @@
 </style>
 <body>
 <div class="container">
-
+    <div class="list-address">
     <div th:each="addressList, i: ${addressList}" id="card" class="card" style="min-width: 300px;max-width: 460px; padding: 10px 10px 10px;">
         <div class="card-body"  style="z-index: 1;padding: 15px; border: 2px solid #8bace2;">
-            <input id="address-id" type="hidden" th:value="${addressList.getId()}">
+            <input class="address-id" type="hidden" th:value="${addressList.getId()}">
             <h2 class="card-title" th:text="${addressList.getRecipient()}">이름</h2>
             <h2 class="card-subtitle mb-2 text-muted" th:text="${addressList.getPhone()}">번호</h2>
             <p class="card-text" th:text="${addressList.getAddress()}"></p>
             <p class="card-text" th:text="${addressList.getDetailedAddress()}"></p>
-            <button id="update" type="button" class="btn-success card-link btn-update">수정</button>
-            <button id="update2" type="button" class="btn-success">수정2</button>
-<!--            <input type="button"  id="btn-update" class="btn-success card-link btn-update" value="수정">-->
+            <button type="button" class="btn-success card-link btn-update" th:onclick="|javascript:updateAddress('${addressList.getId()}')|"> 수정</button>
             <button type="button" class="btn-success card-link">선택</button>
         </div>
     </div>
-
     <button class="address-addBtn" onclick="addAddress()">+배송지 추가</button>
+    </div>
+
     <div id="add-address" class="add-address">
     <form method="post" th:action th:object="${address}">
 <!--    <input type="hidden" th:field="*{recipient}" >-->
@@ -75,6 +82,29 @@
         <button type="submit">저장</button>
     </form>
     </div>
+
+    <div id="update-delete-address" class="update-delete-address">
+
+        <form method="post" th:object="${address}">
+            <input type="hidden" name="_method" value="PUT"/>
+<!--            <input type="hidden" name = "_method" value = "delete"/>-->
+
+            <input type="hidden" th:field="*{id}" id="id2" name="id2">
+            <input type="text" th:field="*{recipient}" id="recipient2" name="recipient" placeholder="받는사람">
+            <input type="text" th:field="*{phone}" id="phone2" name="phone" placeholder="연락처">
+            <input type="text" id="sample4_postcode2" name="zipcode" placeholder="우편번호">
+            <input type="button" onclick="sample4_execDaumPostcode2()" value="우편번호 찾기"><br>
+            <input type="text" th:field="*{address}" id="address2" name="address" placeholder="도로명주소">
+            <input type="text" id="sample4_jibunAddress2" name="" placeholder="지번주소">
+            <span id="guide2" style="color:#999;display:none"></span>
+            <input type="text" th:field="*{detailedAddress}" id="detailAddress2" placeholder="상세주소">
+            <input type="text" id="sample4_extraAddress2" placeholder="참고항목">
+            <button type="button" onclick="putAddress()">수정</button>
+            <button type="button" class="btn btn-danger">삭제</button>
+        </form>
+    </div>
+
+
 </div>
 </body>
 </html>
@@ -85,56 +115,102 @@
 <script defer>
 
     document.addEventListener("DOMContentLoaded", function() {
-        const xhttp = new XMLHttpRequest();
-        let updateAddress = document.querySelector("#update");
-        updateAddress.addEventListener("click", function() {
-            let addressId = document.querySelector('#address-id').value;
-            console.log(addressId);
-            xhttp.onreadystatechange = () => {
-                /* readyState가 Done이고 응답 값이 200일 때, 받아온 response로 name과 age를 그려줌 */
-                if (xhttp.readyState === XMLHttpRequest.DONE) {
-                    if (xhttp.status === 200) {
-                        console.log("성공");
-                        addAddress();
-
-                        let result = xhttp.response;
-                        document.getElementById("recipient").value = result.recipient;
-                        document.getElementById("phone").value = result.phone;
-                        document.getElementById("address").value = result.address;
-                        document.getElementById("detailAddress").value = result.detailAddress;
-
-                        // document.getElementById("age").innerText = result.age;
-                        console.log(result.recipient);
-
-                    } else {
-                        alert('Request Error!');
-                    }
-                }
-            };
-            /* Get 방식으로 name 파라미터와 함께 요청 */
-            
-            xhttp.open('GET', '/update/' + addressId);
-            /* Response Type을 Json으로 사전 정의 */
-            xhttp.responseType = "json";
-            /* 정의된 서버에 요청을 전송 */
-            xhttp.send();
-        });
 
 
     });
 
 
+    function updateAddress(id) {
+        console.log(id);
+        const xhttp = new XMLHttpRequest();
+                let addressId = id;
+                console.log(addressId);
+                xhttp.onreadystatechange = () => {
+                    /* readyState가 Done이고 응답 값이 200일 때, 받아온 response로 name과 age를 그려줌 */
+                    if (xhttp.readyState === XMLHttpRequest.DONE) {
+                        if (xhttp.status === 200) {
+                            putListAddress();
 
+                            let result = xhttp.response;
+                            document.getElementById("recipient2").value = result.recipient;
+                            document.getElementById("phone2").value = result.phone;
+                            document.getElementById("address2").value = result.address;
+                            document.getElementById("detailAddress2").value = result.detailAddress;
+                            document.getElementById("id2").value = result.id;
 
+                            // document.getElementById("age").innerText = result.age;
+                            console.log(result.recipient);
+
+                        } else {
+                        }
+                    }
+                };
+                /* Get 방식으로 name 파라미터와 함께 요청 */
+
+                xhttp.open('GET', '/update/' + addressId);
+                /* Response Type을 Json으로 사전 정의 */
+                xhttp.responseType = "json";
+                /* 정의된 서버에 요청을 전송 */
+                xhttp.send();
+
+    }
+
+    function putAddress() {
+        let id = document.querySelector("#id2").value;
+        let recipient = document.getElementById("recipient2").value;
+        let phone = document.getElementById("phone2").value;
+        let address = document.getElementById("address2").value;
+        let detailAddress = document.getElementById("detailAddress2").value;
+        console.log(id);
+        let data = {
+            recipient       : recipient,
+            phone     : phone,
+            address     : address,
+            detailedAddress      : detailAddress,
+            id      : id
+        };
+
+        const xhttp = new XMLHttpRequest();
+        let addressId = id;
+        console.log(addressId);
+        xhttp.onreadystatechange = () => {
+            /* readyState가 Done이고 응답 값이 200일 때, 받아온 response로 name과 age를 그려줌 */
+            if (xhttp.readyState === XMLHttpRequest.DONE) {
+                if (xhttp.status === 200) {
+                    alert("성공~");
+
+                } else {
+                }
+            }
+        };
+        /* Get 방식으로 name 파라미터와 함께 요청 */
+
+        xhttp.open('PUT', '/update/' + addressId);
+        /* Response Type을 Json으로 사전 정의 */
+        xhttp.responseType = "json";
+        xhttp.setRequestHeader('Content-type', 'application/json; charset=UTF-8;');
+        /* 정의된 서버에 요청을 전송 */
+        xhttp.send(JSON.stringify(data));
+
+    }
 
     function addAddress() {
         document.getElementById('add-address').className = 'add-address-active';
-        let card = document.querySelectorAll('.card');
-        for (var i=0; i < card.length; i++) {
-            card[i].classList.remove("card");
-            card[i].classList.add("card-none");
+        let card = document.querySelectorAll('.list-address');
+        for (let i=0; i < card.length; i++) {
+            card[i].classList.remove("list-address");
+            card[i].classList.add("list-address-none");
         }
     }
+    function putListAddress() {
+        document.getElementById('update-delete-address').className = 'update-delete-address-active';
+        let card = document.querySelectorAll('.list-address');
+        for (let i=0; i < card.length; i++) {
+            card[i].classList.remove("list-address");
+            card[i].classList.add("list-address-none");
+        }
+    }
+
 
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
@@ -191,4 +267,60 @@
             }
         }).open();
     }
+
+    function sample4_execDaumPostcode2() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample4_postcode2').value = data.zonecode;
+                document.getElementById("address2").value = roadAddr;
+                document.getElementById("sample4_jibunAddress2").value = data.jibunAddress;
+
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress2").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress2").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide2");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }
+
 </script>
