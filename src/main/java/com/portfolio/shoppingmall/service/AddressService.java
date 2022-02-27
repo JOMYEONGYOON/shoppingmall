@@ -1,9 +1,9 @@
 package com.portfolio.shoppingmall.service;
 
 import com.portfolio.shoppingmall.domain.member.Address;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AddressService {
 
@@ -11,4 +11,5 @@ public interface AddressService {
 
     void save(Address address);
 
+    Optional<Address> findById(Long id);
 }

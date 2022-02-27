@@ -102,6 +102,19 @@ public class OrderController {
     }
 
     @ResponseBody
+    @GetMapping("/update/{id}")
+    public Map<String, Object> updateAddress(@PathVariable Long id , Model model){
+        Map<String, Object> response = new HashMap<>();
+        Optional<Address> addressId = addressService.findById(id);
+        model.addAttribute("addressId",addressId);
+        response.put("recipient",addressId.get().getRecipient());
+        response.put("phone",addressId.get().getPhone());
+        response.put("address",addressId.get().getAddress());
+        response.put("detailAddress",addressId.get().getDetailedAddress());
+        return response;
+    }
+
+    @ResponseBody
     @RequestMapping(value="/verifyIamport/{imp_uid}")
     public IamportResponse<Payment> paymentByImpUid(
             Model model

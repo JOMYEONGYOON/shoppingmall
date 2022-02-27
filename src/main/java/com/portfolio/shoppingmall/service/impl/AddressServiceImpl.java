@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -24,5 +25,10 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void save(Address address) {
         addressRepository.save(address);
+    }
+
+    @Override
+    public Optional<Address> findById(Long id) {
+        return addressRepository.findById(id);
     }
 }
