@@ -38,16 +38,16 @@
         <th>이름</th>
         <th>연락처</th>
         <th>배송 주소</th>
-        <th>배송 요청사항</th>
+        <th>배송 상세주소</th>
       </tr>
       </thead>
       <tbody id="delivery-table">
 
       <tr>
-        <td>조명윤</td>
-        <td>010-7420-7786</td>
-        <td>부산시 북구 화명동 </td>
-        <td>문 앞에 나두세요</td>
+        <td th:text="${addressSelection.getRecipient()}" }>조명윤</td>
+        <td th:text="${addressSelection.getPhone()}">010-7420-7786</td>
+        <td th:text="${addressSelection.getAddress()}">부산시 북구 화명동 </td>
+        <td th:text="${addressSelection.getDetailedAddress()}">문 앞에 나두세요</td>
       </tr>
 
       </tbody>

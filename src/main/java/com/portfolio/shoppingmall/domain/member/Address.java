@@ -26,6 +26,10 @@ public class Address {
 
     private String detailedAddress;
 
+    private String zipcode;
+
+    private boolean selection;
+
 //    @Builder
 //    public Address(Member member, String recipient, String phone, String address, String detailedAddress) {
 //        this.member = member;

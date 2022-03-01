@@ -73,8 +73,15 @@ public class OrderController {
         String name = authentication.getName();
         Member member = memberService.findByEmail(name);
         Long id = member.getId();
+        List<Address> addressMember = addressService.findByMember_id(id);
+        for (Address address : addressMember) {
+            if(address.isSelection()){
+                model.addAttribute("addressSelection",address);
+            }
 
+        }
         model.addAttribute("orderMember",member);
+
         model.addAttribute("orderItem",map);
         return "/order/orderForm";
     }
@@ -119,14 +126,33 @@ public class OrderController {
         Member member = memberService.findByEmail(name);
         addressDto.setMember(member);
         Optional<Address> addressId = addressService.findById(id);
-        addressId.get().setAddress(addressDto.getAddress());
-        addressId.get().setDetailedAddress(addressDto.getDetailedAddress());
-        addressId.get().setPhone(addressDto.getPhone());
-        addressId.get().setRecipient(addressDto.getRecipient());
+        List<Address> memberId = addressService.findByMember_id(addressId.get().getMember().getId());
+        for(int i=0;i<memberId.size();i++){
+            memberId.get(i).setSelection(false);
+        }
+        if(addressDto.getAddress() == null){
+            addressId.get().setSelection(true);
+            addressId.get().getAddress();
+            addressId.get().getDetailedAddress();
+            addressId.get().getPhone();
+            addressId.get().getRecipient();
+        }else {
+            addressId.get().setAddress(addressDto.getAddress());
+            addressId.get().setDetailedAddress(addressDto.getDetailedAddress());
+            addressId.get().setPhone(addressDto.getPhone());
+            addressId.get().setRecipient(addressDto.getRecipient());
 
+        }
         Address address = modelMapper.map(addressDto, Address.class);
         addressService.save(address);
 
+        return "ok";
+    }
+
+    @ResponseBody
+    @DeleteMapping("/delete/{id}")
+    public String deleteAddress(@PathVariable Long id){
+        addressService.delete(id);
         return "ok";
     }
 

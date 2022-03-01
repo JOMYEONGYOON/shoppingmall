@@ -12,7 +12,6 @@ public class AddressDto {
 
     private Member member;
 
-
     private String recipient;
 
     private String phone;
@@ -20,4 +19,9 @@ public class AddressDto {
     private String address;
 
     private String detailedAddress;
+
+    private String zipcode;
+
+    private boolean selection;
+
 }
