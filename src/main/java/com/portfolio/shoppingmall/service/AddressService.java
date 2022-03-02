@@ -14,4 +14,8 @@ public interface AddressService {
     Optional<Address> findById(Long id);
 
     void delete(Long id);
+
+    List<Address> pickAddress(Long id);
+
+
 }

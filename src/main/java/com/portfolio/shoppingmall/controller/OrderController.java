@@ -127,15 +127,18 @@ public class OrderController {
         addressDto.setMember(member);
         Optional<Address> addressId = addressService.findById(id);
         List<Address> memberId = addressService.findByMember_id(addressId.get().getMember().getId());
-        for(int i=0;i<memberId.size();i++){
-            memberId.get(i).setSelection(false);
+        List<Address> addresses = addressService.pickAddress(memberId.get(0).getId());
+        for (Address address : addresses) {
+            if(address.isSelection()) {
+                address.setSelection(false);
+                addressId.get().setAddress(addressDto.getAddress());
+                addressId.get().setDetailedAddress(addressDto.getDetailedAddress());
+                addressId.get().setPhone(addressDto.getPhone());
+                addressId.get().setRecipient(addressDto.getRecipient());
+            }
         }
         if(addressDto.getAddress() == null){
             addressId.get().setSelection(true);
-            addressId.get().getAddress();
-            addressId.get().getDetailedAddress();
-            addressId.get().getPhone();
-            addressId.get().getRecipient();
         }else {
             addressId.get().setAddress(addressDto.getAddress());
             addressId.get().setDetailedAddress(addressDto.getDetailedAddress());
@@ -143,6 +146,7 @@ public class OrderController {
             addressId.get().setRecipient(addressDto.getRecipient());
 
         }
+
         Address address = modelMapper.map(addressDto, Address.class);
         addressService.save(address);
 

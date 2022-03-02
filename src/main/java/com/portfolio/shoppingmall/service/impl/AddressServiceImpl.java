@@ -36,4 +36,9 @@ public class AddressServiceImpl implements AddressService {
     public void delete(Long id) {
         addressRepository.deleteById(id);
     }
+
+    @Override
+    public List<Address> pickAddress(Long id) {
+        return addressRepository.pickAddress(id);
+    }
 }
