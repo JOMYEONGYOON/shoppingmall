@@ -238,13 +238,14 @@
             /* readyState가 Done이고 응답 값이 200일 때, 받아온 response로 name과 age를 그려줌 */
             if (xhttp.readyState === XMLHttpRequest.DONE) {
                 if (xhttp.status === 200) {
-                    location.replace("/popup");
+                    opener.parent.location.reload();
+                    window.close();
                 } else {
                 }
             }
         };
         /* Get 방식으로 name 파라미터와 함께 요청 */
-        xhttp.open('PUT', '/update/' + addressId);
+        xhttp.open('PUT', '/pick/' + addressId);
         /* Response Type을 Json으로 사전 정의 */
         xhttp.responseType = "json";
         xhttp.setRequestHeader('Content-type', 'application/json; charset=UTF-8;');

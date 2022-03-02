@@ -45,59 +45,59 @@ public class OrderController {
 
     private IamportClient api;
 
-    public OrderController(){
-        this.api = new IamportClient("6685630644289929","bf21670bef0bfc7e541818e6dcaec606e8d69ad65c1191e478a902b0658a63f7859ae9134aa59680");
+    public OrderController() {
+        this.api = new IamportClient("6685630644289929", "bf21670bef0bfc7e541818e6dcaec606e8d69ad65c1191e478a902b0658a63f7859ae9134aa59680");
     }
 
     @ModelAttribute("address")
-    public AddressDto addressDto(){
+    public AddressDto addressDto() {
         return new AddressDto();
     }
 
     @PostMapping("/order/service")
     @ResponseBody
-    public HashMap<String, String> orderService(@RequestParam HashMap<String, String> map){
-        log.info("map={}",map);
+    public HashMap<String, String> orderService(@RequestParam HashMap<String, String> map) {
+        log.info("map={}", map);
         String idValue = map.get("cart2[id]");
-        String quantity = map.get("allData["+idValue+"][quantity]");
-        String name = map.get("allData["+idValue+"][name]");
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("name",name);
-        hashMap.put("quantity",quantity);
+        String quantity = map.get("allData[" + idValue + "][quantity]");
+        String name = map.get("allData[" + idValue + "][name]");
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("name", name);
+        hashMap.put("quantity", quantity);
         return hashMap;
     }
 
     @GetMapping("/order")
-    public String order(Model model, Authentication authentication , @RequestParam HashMap<String, String> map){
+    public String order(Model model, Authentication authentication, @RequestParam HashMap<String, String> map) {
 
         String name = authentication.getName();
         Member member = memberService.findByEmail(name);
         Long id = member.getId();
         List<Address> addressMember = addressService.findByMember_id(id);
         for (Address address : addressMember) {
-            if(address.isSelection()){
-                model.addAttribute("addressSelection",address);
+            if (address.isSelection()) {
+                model.addAttribute("addressSelection", address);
             }
 
         }
-        model.addAttribute("orderMember",member);
+        model.addAttribute("orderMember", member);
 
-        model.addAttribute("orderItem",map);
+        model.addAttribute("orderItem", map);
         return "/order/orderForm";
     }
 
     @GetMapping("/popup")
-    public String popup(Model model, Authentication authentication){
+    public String popup(Model model, Authentication authentication) {
         String name = authentication.getName();
         Member member = memberService.findByEmail(name);
         Long id = member.getId();
         List<Address> addressList = addressService.findByMember_id(id);
-        model.addAttribute("addressList",addressList);
+        model.addAttribute("addressList", addressList);
         return "/order/addresspopup";
     }
 
     @PostMapping("/popup")
-    public String addAddress(AddressDto addressDto , Authentication authentication) {
+    public String addAddress(AddressDto addressDto, Authentication authentication) {
         String name = authentication.getName();
         Member member = memberService.findByEmail(name);
         addressDto.setMember(member);
@@ -108,45 +108,28 @@ public class OrderController {
 
     @ResponseBody
     @GetMapping("/update/{id}")
-    public Map<String, Object> updateAddress(@PathVariable Long id , Model model){
+    public Map<String, Object> updateAddress(@PathVariable Long id, Model model) {
         Map<String, Object> response = new HashMap<>();
         Optional<Address> addressId = addressService.findById(id);
-        response.put("recipient",addressId.get().getRecipient());
-        response.put("id",addressId.get().getId());
-        response.put("phone",addressId.get().getPhone());
-        response.put("address",addressId.get().getAddress());
-        response.put("detailAddress",addressId.get().getDetailedAddress());
+        response.put("recipient", addressId.get().getRecipient());
+        response.put("id", addressId.get().getId());
+        response.put("phone", addressId.get().getPhone());
+        response.put("address", addressId.get().getAddress());
+        response.put("detailAddress", addressId.get().getDetailedAddress());
         return response;
     }
 
     @ResponseBody
     @PutMapping("/update/{id}")
-    public String updatePutAddress(@PathVariable Long id , @RequestBody AddressDto addressDto, Authentication authentication){
+    public String updatePutAddress(@PathVariable Long id, @RequestBody AddressDto addressDto, Authentication authentication) {
         String name = authentication.getName();
         Member member = memberService.findByEmail(name);
         addressDto.setMember(member);
         Optional<Address> addressId = addressService.findById(id);
-        List<Address> memberId = addressService.findByMember_id(addressId.get().getMember().getId());
-        List<Address> addresses = addressService.pickAddress(memberId.get(0).getId());
-        for (Address address : addresses) {
-            if(address.isSelection()) {
-                address.setSelection(false);
-                addressId.get().setAddress(addressDto.getAddress());
-                addressId.get().setDetailedAddress(addressDto.getDetailedAddress());
-                addressId.get().setPhone(addressDto.getPhone());
-                addressId.get().setRecipient(addressDto.getRecipient());
-            }
-        }
-        if(addressDto.getAddress() == null){
-            addressId.get().setSelection(true);
-        }else {
-            addressId.get().setAddress(addressDto.getAddress());
-            addressId.get().setDetailedAddress(addressDto.getDetailedAddress());
-            addressId.get().setPhone(addressDto.getPhone());
-            addressId.get().setRecipient(addressDto.getRecipient());
-
-        }
-
+        addressId.get().setAddress(addressDto.getAddress());
+        addressId.get().setDetailedAddress(addressDto.getDetailedAddress());
+        addressId.get().setPhone(addressDto.getPhone());
+        addressId.get().setRecipient(addressDto.getRecipient());
         Address address = modelMapper.map(addressDto, Address.class);
         addressService.save(address);
 
@@ -154,23 +137,46 @@ public class OrderController {
     }
 
     @ResponseBody
+    @PutMapping("/pick/{id}")
+    public String pickAddress(@PathVariable Long id, @RequestBody AddressDto addressDto, Authentication authentication) {
+        String name = authentication.getName();
+        Member member = memberService.findByEmail(name);
+        addressDto.setMember(member);
+        List<Address> memberId = addressService.pickAddress(member.getId());
+        for (Address address : memberId) {
+            address.setSelection(false);
+        }
+        Optional<Address> pickId = addressService.findById(id);
+        addressDto.setAddress(pickId.get().getAddress());
+        addressDto.setDetailedAddress(pickId.get().getDetailedAddress());
+        addressDto.setPhone(pickId.get().getPhone());
+        addressDto.setZipcode(pickId.get().getZipcode());
+        addressDto.setRecipient(pickId.get().getRecipient());
+        addressDto.setSelection(true);
+        Address address = modelMapper.map(addressDto, Address.class);
+        addressService.save(address);
+
+        return "ok";
+    }
+
+
+    @ResponseBody
     @DeleteMapping("/delete/{id}")
-    public String deleteAddress(@PathVariable Long id){
+    public String deleteAddress(@PathVariable Long id) {
         addressService.delete(id);
         return "ok";
     }
 
 
     @ResponseBody
-    @RequestMapping(value="/verifyIamport/{imp_uid}")
+    @RequestMapping(value = "/verifyIamport/{imp_uid}")
     public IamportResponse<Payment> paymentByImpUid(
             Model model
             , @RequestBody HashMap<String, String> map
             , Locale locale
             , HttpSession session
             , HttpServletRequest request
-            , @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException
-    {
+            , @PathVariable(value = "imp_uid") String imp_uid) throws IamportResponseException, IOException {
         return api.paymentByImpUid(imp_uid);
     }
 
