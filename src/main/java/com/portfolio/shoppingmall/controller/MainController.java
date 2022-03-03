@@ -28,11 +28,11 @@ public class MainController {
     private final ProductRepository productRepository;
 
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String home(Model model, HttpServletRequest request){
         List<Product> itemsList = productRepository.findAll();
         model.addAttribute("itemsList",itemsList);
-        return "myitems";
+        return "test/testindex";
     }
 
 

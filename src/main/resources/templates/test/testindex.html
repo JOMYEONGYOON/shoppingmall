@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width, initial-scale-1.0">
     <title>RedStore | Ecommerce Website Design</title>
-    <link rel="stylesheet" href="/static/css/testStyle/testStyle.css">
+<!--    <link rel="stylesheet" href="/static/css/testStyle/testStyle.css">-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/static/css/styles.css" th:href="@{/css/testStyle/testStyle.css}" rel="stylesheet" />
 </head>
 <body>
 <div class="header">
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <img src="/static/assets/testimgs/images/logo.png" width="125px;">
+                <img th:src="@{/assets/testimgs/images/logo.png}" width="125px;">
             </div>
             <nav>
-                <ul>
+                <ul id="menu-items">
                     <li><a href="">Home</a></li>
                     <li><a href="">Products</a></li>
                     <li><a href="">About</a></li>
@@ -25,7 +29,10 @@
                 </ul>
             </nav>
 
-            <img src="/static/assets/testimgs/images/cart.png" width="30px" height="30px">
+            <img src="/static/assets/testimgs/images/cart.png" th:src="@{/assets/testimgs/images/cart.png}" width="30px" height="30px">
+            <img src="/static/assets/testimgs/images/menu.png" th:src="@{/assets/testimgs/images/menu.png}" class="menu-icon" width="30px" height="30px"
+                 onclick="menutoggle();">
+
 
         </div>
         <div class="row">
@@ -43,25 +50,326 @@
 </div>
 
 <!--------------------------------카테고리---------------------->
-    <div class="categories">
-        <div class="small-container">
-            <div class="row">
-                <div class="col-3">
-                    <img src="/static/assets/testimgs/images/category-1.jpg">
-                </div>
-                <div class="col-3">
-                    <img src="/static/assets/testimgs/images/category-2.jpg">
-                </div>
-                <div class="col-3">
-                    <img src="/static/assets/testimgs/images/category-3.jpg">
-                </div>
+<div class="categories">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-3">
+                <img src="/static/assets/testimgs/images/category-1.jpg">
             </div>
+            <div class="col-3">
+                <img src="/static/assets/testimgs/images/category-2.jpg">
+            </div>
+            <div class="col-3">
+                <img src="/static/assets/testimgs/images/category-3.jpg">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--------------------------------추천된 카테고리---------------------->
+<div class="small-container">
+    <h2 class="title">Featured Products</h2>
+    <div class="row">
+        <div class="col-4">
+            <img src="/static/assets/testimgs/images/product-1.jpg">
+            <h4>Red Printed T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+        <div class="col-4">
+            <img src="/static/assets/testimgs/images/product-2.jpg">
+            <h4>Red Printed T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+        <div class="col-4">
+            <img src="/static/assets/testimgs/images/product-3.jpg">
+            <h4>Red Printed T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+        <div class="col-4">
+            <img src="/static/assets/testimgs/images/product-4.jpg">
+            <h4>Red Printed T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+    </div>
+    <!----------------------------------------------  신상품 ---------------------------------------------------->
+    <h2 class="title">Latest Products</h2>
+    <div class="row">
+        <div class="col-4">
+            <img src="/static/assets/testimgs/images/product-5.jpg">
+            <h4>Red Printed T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+        <div class="col-4">
+            <img src="/static/assets/testimgs/images/product-6.jpg">
+            <h4>Red Printed T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+        <div class="col-4">
+            <img src="/static/assets/testimgs/images/product-7.jpg">
+            <h4>Red Printed T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+        <div class="col-4">
+            <img src="/static/assets/testimgs/images/product-8.jpg">
+            <h4>Red Printed T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>$50.00</p>
         </div>
 
     </div>
 
-<!--------------------------------추천된 카테고리---------------------->
+    <div class="row">
+        <div class="col-4">
+            <img src="/static/assets/testimgs/images/product-9.jpg">
+            <h4>Red Printed T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="/static/assets/testimgs/images/product-10.jpg">
+            <h4>Red Printed T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+        <div class="col-4">
+            <img src="/static/assets/testimgs/images/product-11.jpg">
+            <h4>Red Printed T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+        <div class="col-4">
+            <img src="/static/assets/testimgs/images/product-12.jpg">
+            <h4>Red Printed T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>$50.00</p>
+        </div>
+    </div>
+</div>
+<!--------------------------------------offer------------------------------------>
+<div class="offer">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-2">
+                <img src="/static/assets/testimgs/images/exclusive.png" class="offer-img">
+            </div>
+            <div class="col-2">
+                <p>Exclusively Available on RedStore</p>
+                <h1>Smart Band 4</h1>
+                <small> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    Lorem Ipsum has been the industry's standard dummy text ever </small>
+                <a href="" class="btn">Buy now &#8594;</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!---------------------   testimonial----------------------------------------------->
+<div class="testimonial">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-3">
+                <i class="fa fa-quote-left"></i>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <img src="/static/assets/testimgs/images/user-1.png">
+                <h3>peter parker</h3>
+            </div>
 
 
+            <div class="col-3">
+                <i class="fa fa-quote-left"></i>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <img src="/static/assets/testimgs/images/user-2.png">
+                <h3>peter parker</h3>
+            </div>
+
+            <div class="col-3">
+                <i class="fa fa-quote-left"></i>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <img src="/static/assets/testimgs/images/user-3.png">
+                <h3>peter parker</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<!-------------------------------brands-------------------------------------->
+<div class="brands">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-5">
+                <img src="/static/assets/testimgs/images/logo-godrej.png">
+            </div>
+            <div class="col-5">
+                <img src="/static/assets/testimgs/images/logo-oppo.png">
+            </div>
+            <div class="col-5">
+                <img src="/static/assets/testimgs/images/logo-coca-cola.png">
+            </div>
+            <div class="col-5">
+                <img src="/static/assets/testimgs/images/logo-paypal.png">
+            </div>
+            <div class="col-5">
+                <img src="/static/assets/testimgs/images/logo-philips.png">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--------------------------------------footer------------------------------------>
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download our App</h3>
+                <p>Download App for Android and ios mobile Phone</p>
+                <div class="app-logo">
+                    <img src="/static/assets/testimgs/images/play-store.png">
+                    <img src="/static/assets/testimgs/images/app-store.png">
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <img src="/static/assets/testimgs/images/logo-white.png">
+                <p>Download App for Android and ios mobile Phone</p>
+            </div>
+            <div class="footer-col-3">
+                <h3>Useful Links</h3>
+                <ul>
+                    <li>Coupons</li>
+                    <li>Blog Post</li>
+                    <li>Return Policy</li>
+                    <li>Join Affiliate</li>
+                </ul>
+            </div>
+            <div class="footer-col-4">
+                <h3>Follow us</h3>
+                <ul>
+                    <li>Facebook</li>
+                    <li>Twitter</li>
+                    <li>Instagram</li>
+                    <li>YouTube</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">Copyright 2022</p>
+    </div>
+</div>
+<script defer>
+
+        let menuItems = document.getElementById("menu-items");
+         menuItems.style.maxHeight = "0px";
+
+
+        function menutoggle() {
+            if (menuItems.style.maxHeight  == "0px") {
+                menuItems.style.maxHeight = "200px";
+            } else {
+                menuItems.style.maxHeight = "0px";
+            }
+        }
+
+
+</script>
 </body>
 </html>
+
