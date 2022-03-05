@@ -1,22 +1,17 @@
 package com.portfolio.shoppingmall.controller;
 
 import com.portfolio.shoppingmall.domain.Product;
-import com.portfolio.shoppingmall.domain.item.Items;
-import com.portfolio.shoppingmall.dto.ItemsDto;
-import com.portfolio.shoppingmall.dto.ProductDto;
-import com.portfolio.shoppingmall.repository.ProductRepository;
-import com.portfolio.shoppingmall.service.ItemsService;
+import com.portfolio.shoppingmall.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Slf4j
@@ -24,34 +19,37 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MainController {
 
-    private final ItemsService itemsService;
-    private final ProductRepository productRepository;
+    private final ProductService productService;
 
 
     @GetMapping("/")
-    public String home(Model model, HttpServletRequest request){
-        List<Product> itemsList = productRepository.findAll();
-        model.addAttribute("itemsList",itemsList);
-        return "test/testindex";
+    public String home(Model model){
+        LocalDateTime start = LocalDateTime.of(LocalDate.now().minusDays(7), LocalTime.of(0,0,0));
+        LocalDateTime end = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59));
+        log.info("start={}",start);
+        log.info("end={}",end);
+
+        List<Product> latestProducts = productService.findAllByCreatedAtBetween(start,end);
+        log.info("latestProducts={}",latestProducts);
+        model.addAttribute("latestProducts",latestProducts);
+        return "index";
     }
 
 
-    @GetMapping("/items/view/detail/{id}")
-    public String detail(@PathVariable int id , Model model){
-        // data
-        Product productDto = productRepository.getById(id);
-        model.addAttribute("product", productDto);
-
-
-        return "item";
-    }
+//    @GetMapping("/items/view/detail/{id}")
+//    public String detail(@PathVariable int id , Model model){
+//        // data
+//        Product productDto = productService.getById(id);
+//        model.addAttribute("product", productDto);
+//
+//
+//        return "item";
+//    }
 
     @GetMapping("/search")
     public String search(@RequestParam(value = "keyword") String keyword, Model model){
-        List<ProductDto> itemsDtos = itemsService.searchItem(keyword);
-        log.info("itemsDtos={}",itemsDtos);
-        log.info("keyword={}",keyword);
-        model.addAttribute("itemsList",itemsDtos);
+//        List<ProductDto> itemsDtos = itemsService.searchItem(keyword);
+//        model.addAttribute("itemsList",itemsDtos);
 
         return "myitems";
     }

@@ -1,6 +1,6 @@
 package com.portfolio.shoppingmall.service.impl;
 
-import com.portfolio.shoppingmall.domain.member.Address;
+import com.portfolio.shoppingmall.domain.Address;
 import com.portfolio.shoppingmall.repository.AddressRepository;
 import com.portfolio.shoppingmall.service.AddressService;
 import lombok.RequiredArgsConstructor;

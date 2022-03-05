@@ -1,7 +1,6 @@
 package com.portfolio.shoppingmall.dto;
 
 import com.portfolio.shoppingmall.domain.item.Items;
-import com.portfolio.shoppingmall.domain.member.Member;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -1,20 +1,14 @@
 package com.portfolio.shoppingmall.controller;
 
-import com.portfolio.shoppingmall.domain.Product;
-import com.portfolio.shoppingmall.domain.cart.Cart;
-import com.portfolio.shoppingmall.domain.member.Address;
-import com.portfolio.shoppingmall.domain.member.Member;
+import com.portfolio.shoppingmall.domain.Address;
+import com.portfolio.shoppingmall.domain.Member;
 import com.portfolio.shoppingmall.dto.AddressDto;
-import com.portfolio.shoppingmall.dto.MemberDto;
 import com.portfolio.shoppingmall.service.AddressService;
 import com.portfolio.shoppingmall.service.MemberService;
-import com.portfolio.shoppingmall.service.ProductService;
-import com.siot.IamportRestClient.Iamport;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

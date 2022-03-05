@@ -1,6 +1,6 @@
 package com.portfolio.shoppingmall.dto;
 
-import com.portfolio.shoppingmall.domain.member.Member;
+import com.portfolio.shoppingmall.domain.Member;
 import lombok.Data;
 
 import javax.persistence.JoinColumn;

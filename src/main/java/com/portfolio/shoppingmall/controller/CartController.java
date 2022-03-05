@@ -1,7 +1,7 @@
 package com.portfolio.shoppingmall.controller;
 
 import com.portfolio.shoppingmall.domain.Product;
-import com.portfolio.shoppingmall.domain.cart.Cart;
+import com.portfolio.shoppingmall.domain.Cart;
 import com.portfolio.shoppingmall.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

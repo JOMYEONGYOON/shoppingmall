@@ -1,4 +1,4 @@
-package com.portfolio.shoppingmall.domain.cart;
+package com.portfolio.shoppingmall.domain;
 
 import lombok.Data;
 

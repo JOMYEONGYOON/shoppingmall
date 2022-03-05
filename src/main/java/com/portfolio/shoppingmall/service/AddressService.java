@@ -1,6 +1,6 @@
 package com.portfolio.shoppingmall.service;
 
-import com.portfolio.shoppingmall.domain.member.Address;
+import com.portfolio.shoppingmall.domain.Address;
 
 import java.util.List;
 import java.util.Optional;

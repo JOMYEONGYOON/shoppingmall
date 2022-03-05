@@ -1,8 +1,7 @@
 package com.portfolio.shoppingmall.controller;
 
-import com.portfolio.shoppingmall.domain.cart.Cart;
+import com.portfolio.shoppingmall.domain.Cart;
 import com.portfolio.shoppingmall.domain.item.Items;
-import com.portfolio.shoppingmall.domain.member.Member;
 import com.portfolio.shoppingmall.dto.CartDto;
 import com.portfolio.shoppingmall.service.CartService;
 import lombok.RequiredArgsConstructor;
@@ -10,13 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

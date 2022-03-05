@@ -1,6 +1,6 @@
 package com.portfolio.shoppingmall.service;
 
-import com.portfolio.shoppingmall.domain.member.Member;
+import com.portfolio.shoppingmall.domain.Member;
 import com.portfolio.shoppingmall.dto.MemberDto;
 import org.springframework.stereotype.Service;
 

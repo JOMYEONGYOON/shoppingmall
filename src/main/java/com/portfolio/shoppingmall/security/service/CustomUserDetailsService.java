@@ -1,7 +1,7 @@
 package com.portfolio.shoppingmall.security.service;
 
+import com.portfolio.shoppingmall.domain.Member;
 import com.portfolio.shoppingmall.security.CustomUserDetails;
-import com.portfolio.shoppingmall.domain.member.Member;
 import com.portfolio.shoppingmall.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

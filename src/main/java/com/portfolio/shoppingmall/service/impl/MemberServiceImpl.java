@@ -1,6 +1,6 @@
 package com.portfolio.shoppingmall.service.impl;
 
-import com.portfolio.shoppingmall.domain.member.Member;
+import com.portfolio.shoppingmall.domain.Member;
 import com.portfolio.shoppingmall.dto.MemberDto;
 import com.portfolio.shoppingmall.repository.MemberRepository;
 import com.portfolio.shoppingmall.service.MemberService;

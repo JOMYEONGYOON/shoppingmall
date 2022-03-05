@@ -5,10 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+
 public interface ProductService {
 
     List<Product> findAll();
@@ -16,5 +17,7 @@ public interface ProductService {
     Optional<Product> findById(int id);
 
     List<Product> findByNameContaining(String keyword);
+
+    List<Product> findAllByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
 
 }

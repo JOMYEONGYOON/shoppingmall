@@ -1,19 +1,16 @@
 package com.portfolio.shoppingmall.domain.item;
 
-import com.portfolio.shoppingmall.domain.cart.Cart;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 @Getter
-@Entity
+//@Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "itemId"))
 public class Items {
 

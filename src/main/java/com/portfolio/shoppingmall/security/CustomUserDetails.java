@@ -1,6 +1,6 @@
 package com.portfolio.shoppingmall.security;
 
-import com.portfolio.shoppingmall.domain.member.Member;
+import com.portfolio.shoppingmall.domain.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

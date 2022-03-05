@@ -1,6 +1,5 @@
-package com.portfolio.shoppingmall.domain.member;
+package com.portfolio.shoppingmall.domain;
 
-import com.portfolio.shoppingmall.dto.MemberDto;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

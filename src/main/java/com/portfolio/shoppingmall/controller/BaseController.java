@@ -1,6 +1,6 @@
 package com.portfolio.shoppingmall.controller;
 
-import com.portfolio.shoppingmall.domain.cart.Cart;
+import com.portfolio.shoppingmall.domain.Cart;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;

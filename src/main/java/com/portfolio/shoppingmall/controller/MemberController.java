@@ -1,6 +1,6 @@
 package com.portfolio.shoppingmall.controller;
 
-import com.portfolio.shoppingmall.domain.member.Member;
+import com.portfolio.shoppingmall.domain.Member;
 import com.portfolio.shoppingmall.dto.MemberDto;
 import com.portfolio.shoppingmall.service.MemberService;
 import lombok.RequiredArgsConstructor;

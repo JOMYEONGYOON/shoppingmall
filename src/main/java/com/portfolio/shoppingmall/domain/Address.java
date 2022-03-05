@@ -1,4 +1,4 @@
-package com.portfolio.shoppingmall.domain.member;
+package com.portfolio.shoppingmall.domain;
 
 import lombok.*;
 

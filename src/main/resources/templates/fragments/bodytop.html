@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="bodytopFragment">
+  <div class="header">
+    <div class="container">
+      <div class="navbar">
+        <div class="logo">
+          <img th:src="@{/assets/img/productImgs/logo.png}" width="125px;">
+        </div>
+        <nav>
+          <ul id="menu-items">
+            <li><a href="">Home</a></li>
+            <li><a href="">Products</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">Contact</a></li>
+            <li><a href="">Account</a></li>
+          </ul>
+        </nav>
+        <img src="/static/assets/img/productImgs/cart.png" th:src="@{/assets/img/productImgs/cart.png}"
+             width="30px" height="30px">
+        <img src="/static/assets/img/productImgs/menu.png" th:src="@{/assets/img/productImgs/menu.png}"
+             class="menu-icon" width="30px" height="30px"
+             onclick="menutoggle();">
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-2">
+          <h1>Give your Workout <br> A New Style!</h1>
+          <p>이 악물고 버티고 버텨서 성공하자 반드시 </p>
+          <a href="" class="btn">Explore Now &#8594;</a>
+        </div>
+        <div class="col-2">
+          <img src="/static/assets/img/productImgs/image1.png" th:src="@{/assets/img/productImgs/image1.png}">
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</th:block>

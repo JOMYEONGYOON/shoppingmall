@@ -38,79 +38,46 @@
     </div>
 </div>
 
-<div class="small-container">
+<!-----------------------------------accont page----------------------------------->
+<div class="account-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <img src="/static/assets/img/productImgs/image1.png" width="100%">
+            </div>
 
-    <div class="row row-2">
-        <h2>All products</h2>
-        <select>
-            <option>기본</option>
-            <option>가격 순으로 정렬</option>
-            <option>인기 순으로 정렬</option>
-            <option>평점 순으로 정렬</option>
-            <option>판매 순으로 정렬</option>
-        </select>
-    </div>
+            <div class="col-2">
+                <div class="form-container">
+                    <div class="form-btn">
+                        <span onclick="login()">로그인</span>
+                        <span onclick="register()">회원가입</span>
+                        <hr id="Indicator">
+                    </div>
 
-    <div class="row">
-        <div class="col-4">
-            <img src="/static/assets/img/productImgs/product-1.jpg">
-            <h4>Red Printed T-Shirt</h4>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
-                <i class="fa fa-star-o"></i>
+                    <form id="LoginForm">
+                        <input type="text" placeholder="이메일를 입력해주세요.">
+                        <input type="text" placeholder="비빌번호를 입력해주세요.">
+                        <button type="button" class="btn">로그인</button>
+                        <a href="">비밀번호를 잊어버렸나요? </a>
+                    </form>
+
+                    <form id="RegForm">
+                        <input type="text" placeholder="이메일를 입력해주세요.">
+                        <input type="text" placeholder="비빌번호를 입력해주세요.">
+                        <input type="text" placeholder="비빌번호를 입력해주세요.">
+                        <input type="text" placeholder="비빌번호를 입력해주세요.">
+                        <input type="text" placeholder="비빌번호를 입력해주세요.">
+                        <button type="button" class="btn">회원가입</button>
+                    </form>
+
+
+                </div>
             </div>
-            <p>$50.00</p>
-        </div>
-        <div class="col-4">
-            <img src="/static/assets/img/productImgs/product-2.jpg">
-            <h4>Red Printed T-Shirt</h4>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-        </div>
-        <div class="col-4">
-            <img src="/static/assets/img/productImgs/product-3.jpg">
-            <h4>Red Printed T-Shirt</h4>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-        </div>
-        <div class="col-4">
-            <img src="/static/assets/img/productImgs/product-4.jpg">
-            <h4>Red Printed T-Shirt</h4>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
+
         </div>
     </div>
-
-    <div class="page-btn">
-        <span>1</span>
-        <span>2</span>
-        <span>3</span>
-        <span>4</span>
-        <span>&#8594;</span>
-    </div>
-
 </div>
+
 
 <!--------------------------------------footer------------------------------------>
 <div class="footer">
@@ -167,6 +134,28 @@
 
 
 </script>
+
+<script defer>
+
+    let loginForm = document.getElementById("LoginForm");
+    let regForm = document.getElementById("RegForm");
+    let Indicator = document.getElementById("Indicator");
+
+    function register() {
+        regForm.style.transform = "translateX(0px)";
+        loginForm.style.transform = "translateX(0px)";
+        Indicator.style.transform = "translateX(100px)";
+    }
+
+    function login() {
+        regForm.style.transform = "translateX(300px)";
+        loginForm.style.transform = "translateX(300px)";
+        Indicator.style.transform = "translateX(0px)";
+
+    }
+
+</script>
+
 </body>
 </html>
 

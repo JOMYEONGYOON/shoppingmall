@@ -42,7 +42,9 @@ public class Product {
 
     @Pattern(regexp = "^[1-9][0-9]*", message = "Please choose a category")
     @Column(name = "category_id")
-    private String categoryId;
+    private int categoryId;
+
+
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
@@ -54,7 +56,7 @@ public class Product {
 
 
     @Builder
-    public Product(int id, String name, String slug, String description, String image, String price, String categoryId, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Product(int id, String name, String slug, String description, String image, String price, int categoryId, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.slug = slug;

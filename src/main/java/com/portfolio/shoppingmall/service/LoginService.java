@@ -1,6 +1,5 @@
 package com.portfolio.shoppingmall.service;
 
-import com.portfolio.shoppingmall.domain.member.Member;
 import com.portfolio.shoppingmall.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
