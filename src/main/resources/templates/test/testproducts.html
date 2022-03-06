@@ -1,17 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=yes">
-    <title>RedStore | Ecommerce Website Design</title>
-    <link rel="stylesheet" href="/static/css/testStyle/testStyle.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
-          rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!--    <link href="/static/css/styles.css" th:href="@{/css/testStyle/testStyle.css}" rel="stylesheet"/>-->
-</head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<th:block th:replace="/fragments/header :: headFragment"></th:block>
+<body>
+<th:block th:replace="/fragments/bodyHeader :: topbarFragment">
+
+</th:block>
 <body>
 
 <div class="container">

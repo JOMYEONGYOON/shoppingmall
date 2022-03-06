@@ -40,4 +40,9 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAllByCreatedAtBetween(start,end);
     }
 
+    @Override
+    public Page<Product> findAll(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+
 }

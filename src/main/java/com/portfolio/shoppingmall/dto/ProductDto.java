@@ -37,17 +37,17 @@ public class ProductDto {
 
 
 
-    @Builder
-    public ProductDto(int id, String name, String slug, String description, String image, String price, String categoryId, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.name = name;
-        this.slug = slug;
-        this.description = description;
-        this.image = image;
-        this.price = price;
-        this.categoryId = categoryId;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
+//    @Builder
+//    public ProductDto(int id, String name, String slug, String description, String image, String price, String categoryId, LocalDateTime createdAt, LocalDateTime updatedAt) {
+//        this.id = id;
+//        this.name = name;
+//        this.slug = slug;
+//        this.description = description;
+//        this.image = image;
+//        this.price = price;
+//        this.categoryId = categoryId;
+//        this.createdAt = createdAt;
+//        this.updatedAt = updatedAt;
+//    }
 
 }

@@ -20,4 +20,6 @@ public interface ProductService {
 
     List<Product> findAllByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
 
+    Page<Product> findAll(Pageable pageable);
+
 }

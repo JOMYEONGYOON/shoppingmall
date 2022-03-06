@@ -1,37 +1,39 @@
 package com.portfolio.shoppingmall.controller;
 
 import com.portfolio.shoppingmall.domain.Product;
+import com.portfolio.shoppingmall.dto.ProductDto;
 import com.portfolio.shoppingmall.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/")
 public class MainController {
 
     private final ProductService productService;
+    private final ModelMapper modelMapper;
 
-
-    @GetMapping("/")
+    @GetMapping
     public String home(Model model){
-        LocalDateTime start = LocalDateTime.of(LocalDate.now().minusDays(7), LocalTime.of(0,0,0));
-        LocalDateTime end = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59));
-        log.info("start={}",start);
-        log.info("end={}",end);
-
-        List<Product> latestProducts = productService.findAllByCreatedAtBetween(start,end);
-        log.info("latestProducts={}",latestProducts);
-        model.addAttribute("latestProducts",latestProducts);
+        List<ProductDto> productDtos = productService.findAll().stream().map(list -> modelMapper.map(list, ProductDto.class))
+                .collect(Collectors.toList());
+        model.addAttribute("productList",productDtos);
         return "index";
     }
 
