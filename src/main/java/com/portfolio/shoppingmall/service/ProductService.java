@@ -3,6 +3,7 @@ package com.portfolio.shoppingmall.service;
 import com.portfolio.shoppingmall.domain.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,5 +22,6 @@ public interface ProductService {
     List<Product> findAllByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
 
     Page<Product> findAll(Pageable pageable);
+
 
 }

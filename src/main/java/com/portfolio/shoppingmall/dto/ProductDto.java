@@ -37,7 +37,7 @@ public class ProductDto {
 
 
 
-//    @Builder
+
 //    public ProductDto(int id, String name, String slug, String description, String image, String price, String categoryId, LocalDateTime createdAt, LocalDateTime updatedAt) {
 //        this.id = id;
 //        this.name = name;
@@ -49,5 +49,12 @@ public class ProductDto {
 //        this.createdAt = createdAt;
 //        this.updatedAt = updatedAt;
 //    }
+
+    public ProductDto(int id, String name, String image, String price) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.price = price;
+    }
 
 }
