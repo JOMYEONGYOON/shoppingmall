@@ -47,4 +47,9 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll(pageable);
     }
 
+    @Override
+    public Page<Product> findAllByOrderByPriceDesc(Pageable pageable) {
+        return productRepository.findAllByOrderByPriceDesc(pageable);
+    }
+
 }

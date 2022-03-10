@@ -34,19 +34,27 @@ public class MainController {
 
     @GetMapping
     public String home(Model model, @PageableDefault(size = 4, sort = "id", direction = Sort.Direction.DESC) Pageable pageable, @RequestParam HashMap<String, String> map){
-//        List<ProductDto> list = productService.findAll(pageable).stream().map(list2 -> modelMapper.map(list2, ProductDto.class))
-//                .collect(Collectors.toList());
-        log.info("map={}",map);
-        Page<Product> list = productService.findAll(pageable);
-        Page<ProductDto> pagingList = list.map(pageList -> new ProductDto(
-                pageList.getId(), pageList.getName(), pageList.getImage(), pageList.getPrice()
-        ));
+
+        Page<ProductDto> pagingList =null;
+        String optionValue = map.get("optionValue");
+        log.info("optionValue={}",optionValue);
+
+        if(optionValue == null) {
+            Page<Product> list = productService.findAll(pageable);
+            pagingList = list.map(pageList -> new ProductDto(
+                    pageList.getId(), pageList.getName(), pageList.getImage(), pageList.getPrice()
+            ));
+        }else if (optionValue.equals("1")){
+            Page<Product> list = productService.findAllByOrderByPriceDesc(pageable);
+            pagingList = list.map(pageOrder -> new ProductDto(pageOrder.getId(), pageOrder.getName(), pageOrder.getImage(), pageOrder.getPrice()));
+        }
+
         int nowPage = pagingList.getPageable().getPageNumber()+1;
         int startPage = Math.max(nowPage -4 , 1);
         int endPage = Math.min(nowPage +5 , pagingList.getTotalPages());
 
 
-        model.addAttribute("productList",list);
+        model.addAttribute("productList",pagingList);
         model.addAttribute("nowPage",nowPage);
         model.addAttribute("startPage",startPage);
         model.addAttribute("endPage",endPage);

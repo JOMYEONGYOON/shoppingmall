@@ -12,8 +12,8 @@
     <div class="row row-2">
         <h2>All products</h2>
         <select id="option" onchange="optionEvent()">
-            <option value="0">기본</option>
-            <option value="1">가격 순으로 정렬</option>
+            <option value="0" selected>기본</option>
+            <option value="1" >가격 순으로 정렬</option>
             <option value="2">판매 순으로 정렬</option>
         </select>
     </div>
@@ -98,7 +98,7 @@
             type: "GET",
             success:function(data){
                 console.log(data);
-                location.replace("/");
+                location.reload();
             },
             error:function(jqXHR, textStatus, errorThrown){
                 alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);

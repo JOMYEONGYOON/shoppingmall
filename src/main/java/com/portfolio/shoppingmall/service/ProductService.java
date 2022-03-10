@@ -23,5 +23,7 @@ public interface ProductService {
 
     Page<Product> findAll(Pageable pageable);
 
+    Page<Product> findAllByOrderByPriceDesc(Pageable pageable);
+
 
 }
